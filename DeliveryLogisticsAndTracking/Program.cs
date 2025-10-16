@@ -1,4 +1,5 @@
 using DeliveryLogisticsAndTracking.Components;
+using Syncfusion.Blazor;
 
 namespace DeliveryLogisticsAndTracking
 {
@@ -11,6 +12,8 @@ namespace DeliveryLogisticsAndTracking
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+            builder.Services.AddSyncfusionBlazor();
+
 
             var app = builder.Build();
 
