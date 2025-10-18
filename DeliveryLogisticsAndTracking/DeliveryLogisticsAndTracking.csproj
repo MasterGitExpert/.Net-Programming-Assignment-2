@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Syncfusion.Blazor.Schedule" Version="31.1.17" />
+    <PackageReference Include="Syncfusion.Blazor.Themes" Version="31.1.17" />
+  </ItemGroup>
+
 </Project>
