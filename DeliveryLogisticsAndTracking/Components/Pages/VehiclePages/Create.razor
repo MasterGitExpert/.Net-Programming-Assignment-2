@@ -1,0 +1,59 @@
+﻿@page "/vehicles/create"
+@using Microsoft.EntityFrameworkCore
+@using DeliveryLogisticsAndTracking
+@inject IDbContextFactory<DeliveryLogisticsAndTracking.Data.DeliveryLogisticsAndTrackingContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Vehicle</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Vehicle" OnValidSubmit="AddVehicle" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="registrationnumber" class="form-label">RegistrationNumber:</label> 
+                <InputText id="registrationnumber" @bind-Value="Vehicle.RegistrationNumber" class="form-control" /> 
+                <ValidationMessage For="() => Vehicle.RegistrationNumber" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="payloadcapacity" class="form-label">PayloadCapacity:</label> 
+                <InputNumber id="payloadcapacity" @bind-Value="Vehicle.PayloadCapacity" class="form-control" /> 
+                <ValidationMessage For="() => Vehicle.PayloadCapacity" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="vehiclecost" class="form-label">VehicleCost:</label> 
+                <InputNumber id="vehiclecost" @bind-Value="Vehicle.VehicleCost" class="form-control" /> 
+                <ValidationMessage For="() => Vehicle.VehicleCost" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="vehicletypeid" class="form-label">VehicleTypeId:</label> 
+                <InputNumber id="vehicletypeid" @bind-Value="Vehicle.VehicleTypeId" class="form-control" /> 
+                <ValidationMessage For="() => Vehicle.VehicleTypeId" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/vehicles">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Vehicle Vehicle { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddVehicle()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Vehicle.Add(Vehicle);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/vehicles");
+    }
+}
