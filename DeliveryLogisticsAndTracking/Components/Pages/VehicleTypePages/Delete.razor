@@ -1,0 +1,55 @@
+﻿@page "/vehicletypes/delete"
+@using Microsoft.EntityFrameworkCore
+@using DeliveryLogisticsAndTracking
+@inject IDbContextFactory<DeliveryLogisticsAndTracking.Data.DeliveryLogisticsAndTrackingContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Delete</PageTitle>
+
+<h1>Delete</h1>
+
+<p>Are you sure you want to delete this?</p>
+<div>
+    <h2>VehicleType</h2>
+    <hr />
+    @if (vehicletype is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">VehicleTypeName</dt>
+            <dd class="col-sm-10">@vehicletype.VehicleTypeName</dd>
+        </dl>
+        <EditForm method="post" Model="vehicletype" OnValidSubmit="DeleteVehicleType" FormName="delete" Enhance>
+            <button type="submit" class="btn btn-danger" disabled="@(vehicletype is null)">Delete</button> |
+            <a href="/vehicletypes">Back to List</a>
+        </EditForm>
+    }
+</div>
+
+@code {
+    private VehicleType? vehicletype;
+
+    [SupplyParameterFromQuery]
+    private int VehicleTypeId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        vehicletype = await context.VehicleType.FirstOrDefaultAsync(m => m.VehicleTypeId == VehicleTypeId);
+
+        if (vehicletype is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    private async Task DeleteVehicleType()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.VehicleType.Remove(vehicletype!);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/vehicletypes");
+    }
+}

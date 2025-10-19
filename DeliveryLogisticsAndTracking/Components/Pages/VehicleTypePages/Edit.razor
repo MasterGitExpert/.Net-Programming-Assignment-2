@@ -1,0 +1,89 @@
+﻿@page "/vehicletypes/edit"
+@using Microsoft.EntityFrameworkCore
+@using DeliveryLogisticsAndTracking
+@inject IDbContextFactory<DeliveryLogisticsAndTracking.Data.DeliveryLogisticsAndTrackingContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>VehicleType</h2>
+<hr />
+@if (VehicleType is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="VehicleType" OnValidSubmit="UpdateVehicleType" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="VehicleType.VehicleTypeId" value="@VehicleType.VehicleTypeId" />
+                <div class="mb-3">
+                    <label for="vehicletypename" class="form-label">VehicleTypeName:</label>
+                    <InputText id="vehicletypename" @bind-Value="VehicleType.VehicleTypeName" class="form-control" />
+                    <ValidationMessage For="() => VehicleType.VehicleTypeName" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/vehicletypes">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int VehicleTypeId { get; set; }
+
+    [SupplyParameterFromForm]
+    private VehicleType? VehicleType { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        VehicleType ??= await context.VehicleType.FirstOrDefaultAsync(m => m.VehicleTypeId == VehicleTypeId);
+
+        if (VehicleType is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateVehicleType()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(VehicleType!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!VehicleTypeExists(VehicleType!.VehicleTypeId))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/vehicletypes");
+    }
+
+    private bool VehicleTypeExists(int vehicletypeid)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.VehicleType.Any(e => e.VehicleTypeId == vehicletypeid);
+    }
+}

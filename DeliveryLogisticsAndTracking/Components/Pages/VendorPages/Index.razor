@@ -1,0 +1,36 @@
+﻿@page "/vendors"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using DeliveryLogisticsAndTracking
+@using DeliveryLogisticsAndTracking.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<DeliveryLogisticsAndTracking.Data.DeliveryLogisticsAndTrackingContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="vendors/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.Vendor">
+    <PropertyColumn Property="vendor => vendor.VendorName" />
+
+    <TemplateColumn Context="vendor">
+        <a href="@($"vendors/edit?vendorid={vendor.VendorId}")">Edit</a> |
+        <a href="@($"vendors/details?vendorid={vendor.VendorId}")">Details</a> |
+        <a href="@($"vendors/delete?vendorid={vendor.VendorId}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private DeliveryLogisticsAndTrackingContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

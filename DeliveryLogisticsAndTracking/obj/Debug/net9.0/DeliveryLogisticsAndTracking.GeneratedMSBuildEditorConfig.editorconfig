@@ -1,11 +1,19 @@
 is_global = true
 build_property.TargetFramework = net9.0
+build_property.TargetFramework = net9.0
+build_property.TargetPlatformMinVersion = 
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = DeliveryLogisticsAndTracking
 build_property.RootNamespace = DeliveryLogisticsAndTracking
@@ -28,6 +36,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb3VudGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/DeliveryPages/Create.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xEZWxpdmVyeVBhZ2VzXENyZWF0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/DeliveryPages/Delete.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xEZWxpdmVyeVBhZ2VzXERlbGV0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/DeliveryPages/Details.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xEZWxpdmVyeVBhZ2VzXERldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/DeliveryPages/Edit.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xEZWxpdmVyeVBhZ2VzXEVkaXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/DeliveryPages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xEZWxpdmVyeVBhZ2VzXEluZGV4LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/Error.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -44,8 +72,128 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xNYXAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/RolePages/Create.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSb2xlUGFnZXNcQ3JlYXRlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/RolePages/Delete.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSb2xlUGFnZXNcRGVsZXRlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/RolePages/Details.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSb2xlUGFnZXNcRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/RolePages/Edit.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSb2xlUGFnZXNcRWRpdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/RolePages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSb2xlUGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/Schedule.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTY2hlZHVsZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/ShipmentPages/Create.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTaGlwbWVudFBhZ2VzXENyZWF0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/ShipmentPages/Delete.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTaGlwbWVudFBhZ2VzXERlbGV0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/ShipmentPages/Details.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTaGlwbWVudFBhZ2VzXERldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/ShipmentPages/Edit.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTaGlwbWVudFBhZ2VzXEVkaXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/ShipmentPages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTaGlwbWVudFBhZ2VzXEluZGV4LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/UserPages/Create.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xVc2VyUGFnZXNcQ3JlYXRlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/UserPages/Delete.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xVc2VyUGFnZXNcRGVsZXRlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/UserPages/Details.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xVc2VyUGFnZXNcRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/UserPages/Edit.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xVc2VyUGFnZXNcRWRpdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/UserPages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xVc2VyUGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/VehiclePages/Create.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xWZWhpY2xlUGFnZXNcQ3JlYXRlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/VehiclePages/Delete.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xWZWhpY2xlUGFnZXNcRGVsZXRlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/VehiclePages/Details.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xWZWhpY2xlUGFnZXNcRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/VehiclePages/Edit.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xWZWhpY2xlUGFnZXNcRWRpdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/VehiclePages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xWZWhpY2xlUGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/VehicleTypePages/Create.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xWZWhpY2xlVHlwZVBhZ2VzXENyZWF0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/VehicleTypePages/Delete.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xWZWhpY2xlVHlwZVBhZ2VzXERlbGV0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/VehicleTypePages/Details.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xWZWhpY2xlVHlwZVBhZ2VzXERldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/VehicleTypePages/Edit.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xWZWhpY2xlVHlwZVBhZ2VzXEVkaXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/VehicleTypePages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xWZWhpY2xlVHlwZVBhZ2VzXEluZGV4LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/VendorPages/Create.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xWZW5kb3JQYWdlc1xDcmVhdGUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/VendorPages/Delete.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xWZW5kb3JQYWdlc1xEZWxldGUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/VendorPages/Details.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xWZW5kb3JQYWdlc1xEZXRhaWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/VendorPages/Edit.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xWZW5kb3JQYWdlc1xFZGl0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/VendorPages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xWZW5kb3JQYWdlc1xJbmRleC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Krish/OneDrive/Desktop/Krish/UNI/AppDev.Net/Assignment2/.Net-Programming-Assignment-2/DeliveryLogisticsAndTracking/Components/Pages/Weather.razor]

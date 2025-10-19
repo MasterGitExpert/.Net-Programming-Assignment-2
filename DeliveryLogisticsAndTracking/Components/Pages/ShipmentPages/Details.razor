@@ -1,0 +1,52 @@
+﻿@page "/shipments/details"
+@using Microsoft.EntityFrameworkCore
+@using DeliveryLogisticsAndTracking
+@inject IDbContextFactory<DeliveryLogisticsAndTracking.Data.DeliveryLogisticsAndTrackingContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>Shipment</h2>
+    <hr />
+    @if (shipment is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">ShipmentName</dt>
+            <dd class="col-sm-10">@shipment.ShipmentName</dd>
+            <dt class="col-sm-2">Weight</dt>
+            <dd class="col-sm-10">@shipment.Weight</dd>
+            <dt class="col-sm-2">Priority</dt>
+            <dd class="col-sm-10">@shipment.Priority</dd>
+            <dt class="col-sm-2">VendorId</dt>
+            <dd class="col-sm-10">@shipment.VendorId</dd>
+        </dl>
+        <div>
+            <a href="@($"/shipments/edit?shipmentid={shipment.ShipmentId}")">Edit</a> |
+            <a href="@($"/shipments")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private Shipment? shipment;
+
+    [SupplyParameterFromQuery]
+    private int ShipmentId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        shipment = await context.Shipment.FirstOrDefaultAsync(m => m.ShipmentId == ShipmentId);
+
+        if (shipment is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}
