@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Components.Routing
+@inject SessionStateService SessionStateService
+@inject NavigationManager Navigation
+
+<RouteView RouteData="RouteData" DefaultLayout="DefaultLayout" />
+
+@code {
+    [Parameter] public RouteData? RouteData { get; set; }
+    [Parameter] public Type? DefaultLayout { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (RouteData == null) return;
+
+        var pageType = RouteData.PageType;
+        var userId = SessionStateService.UserId;
+        var userType = SessionStateService.UserType;
+
+        // Login page always accessible
+        if (pageType.FullName?.EndsWith("Login") ?? false)
+            return;
+
+        // Must be logged in
+        if (userId == null)
+        {
+            Navigation.NavigateTo("/login", true);
+            return;
+        }
+
+        // Admins can access everything
+        if (userType == "Admin")
+            return;
+
+        // Drivers can only access Schedule page
+        if (userType == "Driver" && (pageType.FullName?.EndsWith("Schedule") ?? false))
+            return;
+
+        // All other cases: redirect to login
+        Navigation.NavigateTo("/login", true);
+    }
+}
