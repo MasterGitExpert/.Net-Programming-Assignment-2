@@ -1,4 +1,5 @@
 using DeliveryLogisticsAndTracking.Components;
+using Radzen;
 
 namespace DeliveryLogisticsAndTracking
 {
@@ -11,6 +12,7 @@ namespace DeliveryLogisticsAndTracking
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+            builder.Services.AddRadzenComponents();
 
             var app = builder.Build();
 

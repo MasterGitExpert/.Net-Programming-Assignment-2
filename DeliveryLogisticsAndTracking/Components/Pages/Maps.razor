@@ -1,0 +1,23 @@
+﻿@page "/maps"
+@rendermode InteractiveServer
+
+<PageTitle>Routes</PageTitle>
+
+<h1>Routes</h1>
+
+
+<RadzenGoogleMap style="height: 400px" MapId="2cc58eba15772a5e6f8f56d7" ApiKey="AIzaSyCnPGZJVnMsyHIT-7HOmMQydE6e15hxnsE" Center=@(new GoogleMapPosition() { Lat = -33.86, Lng = 151.21 }) Data=@markers>
+</RadzenGoogleMap>
+
+
+@code {
+    IList<RadzenGoogleMapMarker> markers = new List<RadzenGoogleMapMarker>();
+
+    protected override void OnInitialized()
+    {
+        markers.Add(new RadzenGoogleMapMarker { Position = new GoogleMapPosition() { Lat = -27.39, Lng = 153.13 }, Title = "BRISSY", Label = "BRISSY" });
+        markers.Add(new RadzenGoogleMapMarker { Position = new GoogleMapPosition() { Lat = -34.92, Lng = 138.59 }, Title = "RADELAIDE", Label = "RADELAIDE" });
+
+        base.OnInitialized();
+    }
+}

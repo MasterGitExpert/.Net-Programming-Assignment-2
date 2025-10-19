@@ -1,0 +1,223 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|c:\\users\\annabel\\source\\repos\\.net-programming-assignment-2\\deliverylogisticsandtracking\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|solutionrelative:components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|c:\\users\\annabel\\source\\repos\\.net-programming-assignment-2\\deliverylogisticsandtracking\\components\\pages\\maps.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|solutionrelative:components\\pages\\maps.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|c:\\users\\annabel\\source\\repos\\.net-programming-assignment-2\\deliverylogisticsandtracking\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|solutionrelative:components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|c:\\users\\annabel\\source\\repos\\.net-programming-assignment-2\\deliverylogisticsandtracking\\components\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|solutionrelative:components\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|c:\\users\\annabel\\source\\repos\\.net-programming-assignment-2\\deliverylogisticsandtracking\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|solutionrelative:components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|c:\\users\\annabel\\source\\repos\\.net-programming-assignment-2\\deliverylogisticsandtracking\\wwwroot\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|solutionrelative:wwwroot\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|c:\\users\\annabel\\source\\repos\\.net-programming-assignment-2\\deliverylogisticsandtracking\\wwwroot\\maps.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|solutionrelative:wwwroot\\maps.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|c:\\users\\annabel\\source\\repos\\.net-programming-assignment-2\\deliverylogisticsandtracking\\components\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|solutionrelative:components\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|c:\\users\\annabel\\source\\repos\\.net-programming-assignment-2\\deliverylogisticsandtracking\\components\\services\\mapmarkerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|solutionrelative:components\\services\\mapmarkerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|c:\\users\\annabel\\source\\repos\\.net-programming-assignment-2\\deliverylogisticsandtracking\\components\\viewmodels\\mapmarkerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|solutionrelative:components\\viewmodels\\mapmarkerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|c:\\users\\annabel\\source\\repos\\.net-programming-assignment-2\\deliverylogisticsandtracking\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|c:\\users\\annabel\\source\\repos\\.net-programming-assignment-2\\deliverylogisticsandtracking\\components\\models\\mapmarker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{367FAD10-F4D7-4BE1-99F8-339B4520C2F2}|DeliveryLogisticsAndTracking.csproj|solutionrelative:components\\models\\mapmarker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 504,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\Components\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "Components\\Layout\\NavMenu.razor",
+              "ToolTip": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\Components\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "Components\\Layout\\NavMenu.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-19T06:52:55.099Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Home.razor",
+              "DocumentMoniker": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\Components\\Pages\\Home.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\Home.razor",
+              "ToolTip": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\Components\\Pages\\Home.razor",
+              "RelativeToolTip": "Components\\Pages\\Home.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-19T06:52:05.626Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "app.css",
+              "DocumentMoniker": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\wwwroot\\app.css",
+              "RelativeDocumentMoniker": "wwwroot\\app.css",
+              "ToolTip": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\wwwroot\\app.css",
+              "RelativeToolTip": "wwwroot\\app.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-10-19T02:25:43.551Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Maps.razor",
+              "DocumentMoniker": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\Components\\Pages\\Maps.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\Maps.razor",
+              "ToolTip": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\Components\\Pages\\Maps.razor*",
+              "RelativeToolTip": "Components\\Pages\\Maps.razor*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-19T06:06:56.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "_Imports.razor",
+              "DocumentMoniker": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\Components\\_Imports.razor",
+              "RelativeDocumentMoniker": "Components\\_Imports.razor",
+              "ToolTip": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\Components\\_Imports.razor",
+              "RelativeToolTip": "Components\\_Imports.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-19T06:03:52.763Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MapMarkerViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\Components\\ViewModels\\MapMarkerViewModel.cs",
+              "RelativeDocumentMoniker": "Components\\ViewModels\\MapMarkerViewModel.cs",
+              "ToolTip": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\Components\\ViewModels\\MapMarkerViewModel.cs",
+              "RelativeToolTip": "Components\\ViewModels\\MapMarkerViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T04:49:14.766Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MapMarkerService.cs",
+              "DocumentMoniker": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\Components\\Services\\MapMarkerService.cs",
+              "RelativeDocumentMoniker": "Components\\Services\\MapMarkerService.cs",
+              "ToolTip": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\Components\\Services\\MapMarkerService.cs",
+              "RelativeToolTip": "Components\\Services\\MapMarkerService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T04:33:23.608Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "MapMarker.cs",
+              "DocumentMoniker": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\Components\\Models\\MapMarker.cs",
+              "RelativeDocumentMoniker": "Components\\Models\\MapMarker.cs",
+              "ToolTip": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\Components\\Models\\MapMarker.cs",
+              "RelativeToolTip": "Components\\Models\\MapMarker.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T04:31:48.32Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainLayout.razor",
+              "DocumentMoniker": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\Components\\Layout\\MainLayout.razor",
+              "RelativeDocumentMoniker": "Components\\Layout\\MainLayout.razor",
+              "ToolTip": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\Components\\Layout\\MainLayout.razor",
+              "RelativeToolTip": "Components\\Layout\\MainLayout.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-19T03:49:00.205Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAA1wCAAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T03:48:15.299Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "App.razor",
+              "DocumentMoniker": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\Components\\App.razor",
+              "RelativeDocumentMoniker": "Components\\App.razor",
+              "ToolTip": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\Components\\App.razor",
+              "RelativeToolTip": "Components\\App.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-19T02:07:21.819Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "maps.js",
+              "DocumentMoniker": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\wwwroot\\maps.js",
+              "RelativeDocumentMoniker": "wwwroot\\maps.js",
+              "ToolTip": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\wwwroot\\maps.js",
+              "RelativeToolTip": "wwwroot\\maps.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-10-19T02:07:07.364Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

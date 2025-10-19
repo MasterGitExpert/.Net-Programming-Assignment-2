@@ -1,8 +1,30 @@
 {
   "version": 2,
-  "dgSpecHash": "JEAlP9PEzt8=",
+  "dgSpecHash": "9DiEOMdRFSs=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Krish\\OneDrive\\Desktop\\Krish\\UNI\\AppDev.Net\\Assignment2\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\DeliveryLogisticsAndTracking.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\DeliveryLogisticsAndTracking.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Annabel\\.nuget\\packages\\mapster\\7.4.0\\mapster.7.4.0.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\mapster.core\\1.2.1\\mapster.core.1.2.1.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\microsoft.aspnetcore.authorization\\9.0.9\\microsoft.aspnetcore.authorization.9.0.9.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\microsoft.aspnetcore.components\\9.0.9\\microsoft.aspnetcore.components.9.0.9.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\9.0.9\\microsoft.aspnetcore.components.analyzers.9.0.9.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\microsoft.aspnetcore.components.forms\\9.0.9\\microsoft.aspnetcore.components.forms.9.0.9.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\microsoft.aspnetcore.components.web\\9.0.9\\microsoft.aspnetcore.components.web.9.0.9.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\microsoft.aspnetcore.metadata\\9.0.9\\microsoft.aspnetcore.metadata.9.0.9.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\microsoft.entityframeworkcore\\9.0.10\\microsoft.entityframeworkcore.9.0.10.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.10\\microsoft.entityframeworkcore.abstractions.9.0.10.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\9.0.10\\microsoft.entityframeworkcore.analyzers.9.0.10.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\9.0.10\\microsoft.extensions.caching.abstractions.9.0.10.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\microsoft.extensions.caching.memory\\9.0.10\\microsoft.extensions.caching.memory.9.0.10.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\9.0.10\\microsoft.extensions.dependencyinjection.9.0.10.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.10\\microsoft.extensions.dependencyinjection.abstractions.9.0.10.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\microsoft.extensions.logging\\9.0.10\\microsoft.extensions.logging.9.0.10.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\9.0.10\\microsoft.extensions.logging.abstractions.9.0.10.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\microsoft.extensions.options\\9.0.10\\microsoft.extensions.options.9.0.10.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\microsoft.extensions.primitives\\9.0.10\\microsoft.extensions.primitives.9.0.10.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\microsoft.jsinterop\\9.0.9\\microsoft.jsinterop.9.0.9.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\radzen.blazor\\8.0.4\\radzen.blazor.8.0.4.nupkg.sha512"
+  ],
   "logs": []
 }
