@@ -42,8 +42,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 504,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -58,10 +62,6 @@
               "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "NavMenu.razor",
@@ -71,12 +71,7 @@
               "RelativeToolTip": "Components\\Layout\\NavMenu.razor",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T06:52:55.099Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+              "WhenOpened": "2025-10-19T06:52:55.099Z"
             },
             {
               "$type": "Document",
@@ -88,8 +83,7 @@
               "RelativeToolTip": "Components\\Pages\\Home.razor",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T06:52:05.626Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T06:52:05.626Z"
             },
             {
               "$type": "Document",
@@ -101,8 +95,7 @@
               "RelativeToolTip": "wwwroot\\app.css",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-10-19T02:25:43.551Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T02:25:43.551Z"
             },
             {
               "$type": "Document",
@@ -114,8 +107,7 @@
               "RelativeToolTip": "Components\\_Imports.razor",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T06:03:52.763Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T06:03:52.763Z"
             },
             {
               "$type": "Document",
@@ -127,8 +119,7 @@
               "RelativeToolTip": "Components\\Layout\\MainLayout.razor",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T03:49:00.205Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T03:49:00.205Z"
             },
             {
               "$type": "Document",
@@ -140,8 +131,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAQwCIAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T03:48:15.299Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T03:48:15.299Z"
             },
             {
               "$type": "Document",
@@ -153,8 +143,7 @@
               "RelativeToolTip": "Components\\App.razor",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T02:07:21.819Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T02:07:21.819Z"
             }
           ]
         }
