@@ -11,26 +11,33 @@
 </div>
 
 <div class="nav-scrollable @(collapseNav ? "collapse" : "") d-md-block">
-    <nav class="nav flex-column">
+    <nav class="nav flex-column px-3">
         @if (!string.IsNullOrEmpty(SessionStateService.UserType))
         {
-            @* Admin links *@
+            @* Admin-only links *@
             @if (SessionStateService.UserType == "Admin")
             {
-                <NavLink class="nav-link" href="home">Home</NavLink>
+                <NavLink class="nav-link" href="home" Match="NavLinkMatch.All">Home</NavLink>
                 <NavLink class="nav-link" href="users">Users</NavLink>
+                <NavLink class="nav-link" href="vehicles">Vehicles</NavLink>
+                <NavLink class="nav-link" href="vehicletypes">Vehicle Types</NavLink>
+                <NavLink class="nav-link" href="vendors">Vendors</NavLink>
             }
 
             @* Admin + Driver links *@
-            @if (SessionStateService.UserType == "Admin" || SessionStateService.UserType == "Driver")
+            @if (SessionStateService.UserType == "Driver" || SessionStateService.UserType == "Admin")
             {
                 <NavLink class="nav-link" href="schedule">Schedule</NavLink>
             }
 
             @* Logout button *@
-            <div class="nav-item px-3 mt-3">
+            <div class="nav-item mt-3">
                 <button class="btn btn-danger w-100" @onclick="Logout">Logout</button>
             </div>
+        }
+        else
+        {
+            <NavLink class="nav-link" href="login">Login</NavLink>
         }
     </nav>
 </div>
@@ -40,10 +47,9 @@
 
     protected override void OnInitialized()
     {
-        SessionStateService.OnChange += () =>
+        SessionStateService.OnChange += async () =>
         {
-            StateHasChanged();
-            return Task.CompletedTask;
+            await InvokeAsync(StateHasChanged);
         };
     }
 
