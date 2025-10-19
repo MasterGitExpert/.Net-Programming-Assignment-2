@@ -1,0 +1,124 @@
+﻿@page "/users/edit"
+@using Microsoft.EntityFrameworkCore
+@using DeliveryLogisticsAndTracking
+@inject IDbContextFactory<DeliveryLogisticsAndTracking.Data.DeliveryLogisticsAndTrackingContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>User</h2>
+<hr />
+@if (User is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="User" OnValidSubmit="UpdateUser" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="User.UserId" value="@User.UserId" />
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <InputText id="name" @bind-Value="User.Name" class="form-control" />
+                    <ValidationMessage For="() => User.Name" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="dob" class="form-label">DOB:</label>
+                    <InputDate id="dob" @bind-Value="User.DOB" class="form-control" />
+                    <ValidationMessage For="() => User.DOB" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <InputText id="email" @bind-Value="User.Email" class="form-control" />
+                    <ValidationMessage For="() => User.Email" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone:</label>
+                    <InputText id="phone" @bind-Value="User.Phone" class="form-control" />
+                    <ValidationMessage For="() => User.Phone" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address:</label>
+                    <InputText id="address" @bind-Value="User.Address" class="form-control" />
+                    <ValidationMessage For="() => User.Address" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="salary" class="form-label">Salary:</label>
+                    <InputNumber id="salary" @bind-Value="User.Salary" class="form-control" />
+                    <ValidationMessage For="() => User.Salary" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <InputText id="password" @bind-Value="User.Password" class="form-control" />
+                    <ValidationMessage For="() => User.Password" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="roleid" class="form-label">RoleId:</label>
+                    <InputNumber id="roleid" @bind-Value="User.RoleId" class="form-control" />
+                    <ValidationMessage For="() => User.RoleId" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/users">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int UserId { get; set; }
+
+    [SupplyParameterFromForm]
+    private User? User { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        User ??= await context.User.FirstOrDefaultAsync(m => m.UserId == UserId);
+
+        if (User is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateUser()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(User!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!UserExists(User!.UserId))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/users");
+    }
+
+    private bool UserExists(int userid)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.User.Any(e => e.UserId == userid);
+    }
+}

@@ -1,0 +1,79 @@
+﻿@page "/deliveries/delete"
+@using Microsoft.EntityFrameworkCore
+@using DeliveryLogisticsAndTracking
+@inject IDbContextFactory<DeliveryLogisticsAndTracking.Data.DeliveryLogisticsAndTrackingContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Delete</PageTitle>
+
+<h1>Delete</h1>
+
+<p>Are you sure you want to delete this?</p>
+<div>
+    <h2>Delivery</h2>
+    <hr />
+    @if (delivery is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">DeliveryDateTime</dt>
+            <dd class="col-sm-10">@delivery.DeliveryDateTime</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">Source</dt>
+            <dd class="col-sm-10">@delivery.Source</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">Destination</dt>
+            <dd class="col-sm-10">@delivery.Destination</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">DeliveryCharge</dt>
+            <dd class="col-sm-10">@delivery.DeliveryCharge</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">DriverId</dt>
+            <dd class="col-sm-10">@delivery.DriverId</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">DeliveryVehicleId</dt>
+            <dd class="col-sm-10">@delivery.DeliveryVehicleId</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">GoodsShipmentId</dt>
+            <dd class="col-sm-10">@delivery.GoodsShipmentId</dd>
+        </dl>
+        <EditForm method="post" Model="delivery" OnValidSubmit="DeleteDelivery" FormName="delete" Enhance>
+            <button type="submit" class="btn btn-danger" disabled="@(delivery is null)">Delete</button> |
+            <a href="/deliveries">Back to List</a>
+        </EditForm>
+    }
+</div>
+
+@code {
+    private Delivery? delivery;
+
+    [SupplyParameterFromQuery]
+    private int DeliveryId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        delivery = await context.Delivery.FirstOrDefaultAsync(m => m.DeliveryId == DeliveryId);
+
+        if (delivery is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    private async Task DeleteDelivery()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Delivery.Remove(delivery!);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/deliveries");
+    }
+}

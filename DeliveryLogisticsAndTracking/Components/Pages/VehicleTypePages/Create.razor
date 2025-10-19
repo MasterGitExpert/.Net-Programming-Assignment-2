@@ -1,0 +1,44 @@
+﻿@page "/vehicletypes/create"
+@using Microsoft.EntityFrameworkCore
+@using DeliveryLogisticsAndTracking
+@inject IDbContextFactory<DeliveryLogisticsAndTracking.Data.DeliveryLogisticsAndTrackingContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>VehicleType</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="VehicleType" OnValidSubmit="AddVehicleType" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="vehicletypename" class="form-label">VehicleTypeName:</label> 
+                <InputText id="vehicletypename" @bind-Value="VehicleType.VehicleTypeName" class="form-control" /> 
+                <ValidationMessage For="() => VehicleType.VehicleTypeName" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/vehicletypes">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private VehicleType VehicleType { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddVehicleType()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.VehicleType.Add(VehicleType);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/vehicletypes");
+    }
+}
