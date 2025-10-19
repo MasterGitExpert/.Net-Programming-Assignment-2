@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Krish\\OneDrive\\Desktop\\Krish\\UNI\\AppDev.Net\\Assignment2\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\DeliveryLogisticsAndTracking.csproj": {}
+    "C:\\Users\\Matthew\\Source\\Repos\\.Net-Programming-Assignment-2 2.0\\DeliveryLogisticsAndTracking\\DeliveryLogisticsAndTracking.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Krish\\OneDrive\\Desktop\\Krish\\UNI\\AppDev.Net\\Assignment2\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\DeliveryLogisticsAndTracking.csproj": {
+    "C:\\Users\\Matthew\\Source\\Repos\\.Net-Programming-Assignment-2 2.0\\DeliveryLogisticsAndTracking\\DeliveryLogisticsAndTracking.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Krish\\OneDrive\\Desktop\\Krish\\UNI\\AppDev.Net\\Assignment2\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\DeliveryLogisticsAndTracking.csproj",
+        "projectUniqueName": "C:\\Users\\Matthew\\Source\\Repos\\.Net-Programming-Assignment-2 2.0\\DeliveryLogisticsAndTracking\\DeliveryLogisticsAndTracking.csproj",
         "projectName": "DeliveryLogisticsAndTracking",
-        "projectPath": "C:\\Users\\Krish\\OneDrive\\Desktop\\Krish\\UNI\\AppDev.Net\\Assignment2\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\DeliveryLogisticsAndTracking.csproj",
-        "packagesPath": "C:\\Users\\Krish\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Krish\\OneDrive\\Desktop\\Krish\\UNI\\AppDev.Net\\Assignment2\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\obj\\",
+        "projectPath": "C:\\Users\\Matthew\\Source\\Repos\\.Net-Programming-Assignment-2 2.0\\DeliveryLogisticsAndTracking\\DeliveryLogisticsAndTracking.csproj",
+        "packagesPath": "C:\\Users\\Matthew\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Matthew\\Source\\Repos\\.Net-Programming-Assignment-2 2.0\\DeliveryLogisticsAndTracking\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Krish\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Matthew\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -51,6 +50,16 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.10, )"
+            },
             "Syncfusion.Blazor.Schedule": {
               "target": "Package",
               "version": "[31.1.17, )"
@@ -79,7 +88,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

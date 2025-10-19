@@ -1,39 +1,90 @@
-using DeliveryLogisticsAndTracking.Components;
-using Syncfusion.Blazor;
+﻿using DeliveryLogisticsAndTracking.Components;
+using DeliveryLogisticsAndTracking.Data;
+using DeliveryLogisticsAndTracking.Models;
+using DeliveryLogisticsAndTracking.Services;
+using Microsoft.EntityFrameworkCore;
+using Syncfusion.Blazor; // <-- Add this
 
-namespace DeliveryLogisticsAndTracking
+var builder = WebApplication.CreateBuilder(args);
+
+// -----------------------------
+// Services
+// -----------------------------
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+
+// -----------------------------
+// Syncfusion
+// -----------------------------
+builder.Services.AddSyncfusionBlazor(); // <-- Add this
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<SessionStateService>();
+
+var app = builder.Build();
+
+// -----------------------------
+// DB initialization and default admin
+// -----------------------------
+using (var scope = app.Services.CreateScope())
 {
-    public class Program
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var userService = scope.ServiceProvider.GetRequiredService<UserService>();
+
+    db.Database.Migrate();
+
+    if (!await db.Users.AnyAsync())
     {
-        public static void Main(string[] args)
+        var admin = new User
         {
-            var builder = WebApplication.CreateBuilder(args);
+            Name = "Administrator",
+            UserType = "Admin",
+            Email = "admin@example.com",
+            DOB = DateTime.Today,
+            Phone = "0000000000",
+            Address = "Admin HQ"
+        };
 
-            // Add services to the container.
-            builder.Services.AddRazorComponents()
-                .AddInteractiveServerComponents();
-            builder.Services.AddSyncfusionBlazor();
+        using var transaction = await db.Database.BeginTransactionAsync();
+        try
+        {
+            db.Users.Add(admin);
+            await db.SaveChangesAsync();
 
+            await userService.AddUserPasswordAsync(
+                admin.UserId,
+                userService.HashPassword("Admin123!")
+            );
 
-            var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseAntiforgery();
-
-            app.MapStaticAssets();
-            app.MapRazorComponents<App>()
-                .AddInteractiveServerRenderMode();
-
-            app.Run();
+            await transaction.CommitAsync();
+        }
+        catch
+        {
+            await transaction.RollbackAsync();
+            throw;
         }
     }
 }
+
+// -----------------------------
+// Middleware pipeline
+// -----------------------------
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+
+app.MapBlazorHub();
+
+// Correct fallback to root Pages/_Host.cshtml
+app.MapFallbackToPage("/_Host");
+
+app.Run();
