@@ -31,8 +31,13 @@
                 <ValidationMessage For="() => Shipment.Priority" class="text-danger" /> 
             </div>        
             <div class="mb-3">
+                <label for="fragile" class="form-label">Fragile:</label> 
+                <InputCheckbox id="fragile" @bind-Value="Shipment.Fragile" class="form-check-input" /> 
+                <ValidationMessage For="() => Shipment.Fragile" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
                 <label for="vendorid" class="form-label">VendorId:</label> 
-                <InputNumber id="vendorid" @bind-Value="Shipment.VendorId" class="form-control" /> 
+                <InputNumber id="vendorid" @bind-Value="Shipment.VendorId" class="form-control" aria-required="true"/> 
                 <ValidationMessage For="() => Shipment.VendorId" class="text-danger" /> 
             </div>        
             <button type="submit" class="btn btn-primary">Create</button>

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DeliveryLogisticsAndTracking
 {
@@ -8,13 +9,15 @@ namespace DeliveryLogisticsAndTracking
 
         public string? RegistrationNumber { get; set; }
 
-        [Column(TypeName = "decimal(18,4)")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal PayloadCapacity { get; set; }
 
-        [Column(TypeName = "decimal(18,4)")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal VehicleCost { get; set; }
 
-        public int? VehicleTypeId { get; set; }
+        [Required]
+        [ForeignKey("VehicleType")]
+        public int VehicleTypeId { get; set; }
 
         public VehicleType? VehicleType { get; set; }
 

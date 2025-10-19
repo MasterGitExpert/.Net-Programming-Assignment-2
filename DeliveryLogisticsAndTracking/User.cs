@@ -18,13 +18,15 @@ namespace DeliveryLogisticsAndTracking
 
         public string? Address { get; set; }
 
-        [Column(TypeName = "decimal(18,4)")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Salary { get; set; }
 
         public string? Password { get; set; }
 
-        public int? RoleId { get; set; }
-        public Role? Role { get; set; }
+        [Required]
+        [ForeignKey("Role")]
+        public int RoleId { get; set; }
+        public virtual Role Role { get; set; }
 
     }
 }

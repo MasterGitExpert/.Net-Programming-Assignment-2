@@ -14,20 +14,26 @@ namespace DeliveryLogisticsAndTracking
 
         public string? Destination { get; set; }
 
-        [Column(TypeName = "decimal(18,4)")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal DeliveryCharge { get; set; }
 
-        public int? DriverId { get; set; }
+        [Required]
+        [ForeignKey("Driver")]
+        public int DriverId { get; set; }
 
-        public User? Driver { get; set; }
+        public virtual User Driver { get; set; }
 
-        public int? DeliveryVehicleId { get; set; }
+        [Required]
+        [ForeignKey("DeliveryVehicle")]
+        public int DeliveryVehicleId { get; set; }
 
-        public Vehicle? DeliveryVehicle { get; set; }
+        public virtual Vehicle DeliveryVehicle { get; set; }
 
-        public int? GoodsShipmentId { get; set; }
+        [Required]
+        [ForeignKey("GoodsShipment")]
+        public int GoodsShipmentId { get; set; }
 
-        public Shipment? GoodsShipment { get; set; }
+        public virtual Shipment GoodsShipment { get; set; }
 
     }
 }

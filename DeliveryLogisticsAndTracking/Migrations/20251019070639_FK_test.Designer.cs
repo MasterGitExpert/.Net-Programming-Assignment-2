@@ -4,6 +4,7 @@ using DeliveryLogisticsAndTracking.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DeliveryLogisticsAndTracking.Migrations
 {
     [DbContext(typeof(DeliveryLogisticsAndTrackingContext))]
-    partial class DeliveryLogisticsAndTrackingContextModelSnapshot : ModelSnapshot
+    [Migration("20251019070639_FK_test")]
+    partial class FK_test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,7 +34,7 @@ namespace DeliveryLogisticsAndTracking.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DeliveryId"));
 
                     b.Property<decimal>("DeliveryCharge")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<DateTime>("DeliveryDateTime")
                         .HasColumnType("datetime2");
@@ -86,20 +89,17 @@ namespace DeliveryLogisticsAndTracking.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShipmentId"));
 
-                    b.Property<bool>("Fragile")
-                        .HasColumnType("bit");
-
                     b.Property<int>("Priority")
                         .HasColumnType("int");
 
                     b.Property<string>("ShipmentName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("VendorId")
+                    b.Property<int?>("VendorId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Weight")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("ShipmentId");
 
@@ -138,7 +138,7 @@ namespace DeliveryLogisticsAndTracking.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("UserId");
 
@@ -156,15 +156,15 @@ namespace DeliveryLogisticsAndTracking.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VehicleId"));
 
                     b.Property<decimal>("PayloadCapacity")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("RegistrationNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("VehicleCost")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
-                    b.Property<int>("VehicleTypeId")
+                    b.Property<int?>("VehicleTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("VehicleId");
@@ -237,9 +237,7 @@ namespace DeliveryLogisticsAndTracking.Migrations
                 {
                     b.HasOne("DeliveryLogisticsAndTracking.Vendor", "Vendor")
                         .WithMany()
-                        .HasForeignKey("VendorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("VendorId");
 
                     b.Navigation("Vendor");
                 });
@@ -259,9 +257,7 @@ namespace DeliveryLogisticsAndTracking.Migrations
                 {
                     b.HasOne("DeliveryLogisticsAndTracking.VehicleType", "VehicleType")
                         .WithMany()
-                        .HasForeignKey("VehicleTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("VehicleTypeId");
 
                     b.Navigation("VehicleType");
                 });

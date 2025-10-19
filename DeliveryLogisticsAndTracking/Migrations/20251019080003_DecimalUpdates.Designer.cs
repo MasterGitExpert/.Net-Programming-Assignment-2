@@ -4,6 +4,7 @@ using DeliveryLogisticsAndTracking.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DeliveryLogisticsAndTracking.Migrations
 {
     [DbContext(typeof(DeliveryLogisticsAndTrackingContext))]
-    partial class DeliveryLogisticsAndTrackingContextModelSnapshot : ModelSnapshot
+    [Migration("20251019080003_DecimalUpdates")]
+    partial class DecimalUpdates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,9 +88,6 @@ namespace DeliveryLogisticsAndTracking.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShipmentId"));
-
-                    b.Property<bool>("Fragile")
-                        .HasColumnType("bit");
 
                     b.Property<int>("Priority")
                         .HasColumnType("int");
