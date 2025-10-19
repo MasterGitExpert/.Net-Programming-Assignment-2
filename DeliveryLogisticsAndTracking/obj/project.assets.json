@@ -2,6 +2,42 @@
   "version": 3,
   "targets": {
     "net9.0": {
+      "Blazor.Geolocation/9.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Blazor.Serialization": "9.0.1",
+          "Microsoft.AspNetCore.Components.Web": "9.0.0"
+        },
+        "compile": {
+          "lib/net9.0/Blazor.Geolocation.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/Blazor.Geolocation.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/Blazor.Geolocation.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/Blazor.Geolocation.props": {}
+        }
+      },
+      "Blazor.Serialization/9.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/Blazor.Serialization.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/Blazor.Serialization.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Mapster/7.4.0": {
         "type": "package",
         "dependencies": {
@@ -343,6 +379,48 @@
     }
   },
   "libraries": {
+    "Blazor.Geolocation/9.0.1": {
+      "sha512": "K1Gf89HZn/8IAOwU21Fgyq90xYTxIFLNsrdWGYv8eBdBjgme81jzq8oc3r5YH0nAvi+whICL1Io178fKJEfEuQ==",
+      "type": "package",
+      "path": "blazor.geolocation/9.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "README.md",
+        "blazor.geolocation.9.0.1.nupkg.sha512",
+        "blazor.geolocation.nuspec",
+        "build/Blazor.Geolocation.props",
+        "build/Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+        "build/Microsoft.AspNetCore.StaticWebAssets.props",
+        "buildMultiTargeting/Blazor.Geolocation.props",
+        "buildTransitive/Blazor.Geolocation.props",
+        "lib/net8.0/Blazor.Geolocation.dll",
+        "lib/net8.0/Blazor.Geolocation.xml",
+        "lib/net9.0/Blazor.Geolocation.dll",
+        "lib/net9.0/Blazor.Geolocation.xml",
+        "logo.png",
+        "staticwebassets/blazorators.geolocation.g.js"
+      ]
+    },
+    "Blazor.Serialization/9.0.1": {
+      "sha512": "RxAfShLvrK/uZozVBAjjl05s1AwL6fSNmv1mCn4iUw629aYqNqejfEk/4tcXe+qdtkfD890MzLovvBj5HVQCYA==",
+      "type": "package",
+      "path": "blazor.serialization/9.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "README.md",
+        "blazor.serialization.9.0.1.nupkg.sha512",
+        "blazor.serialization.nuspec",
+        "lib/net8.0/Blazor.Serialization.dll",
+        "lib/net8.0/Blazor.Serialization.xml",
+        "lib/net9.0/Blazor.Serialization.dll",
+        "lib/net9.0/Blazor.Serialization.xml",
+        "logo.png"
+      ]
+    },
     "Mapster/7.4.0": {
       "sha512": "RYGoDqvS4WTKIq0HDyPBBVIj6N0mluOCXQ1Vk95JKseMHEsbCXSEGKSlP95oL+s42IXAXbqvHj7p0YaRBUcfqg==",
       "type": "package",
@@ -887,6 +965,7 @@
   },
   "projectFileDependencyGroups": {
     "net9.0": [
+      "Blazor.Geolocation >= 9.0.1",
       "Mapster >= 7.4.0",
       "Microsoft.EntityFrameworkCore >= 9.0.10",
       "Radzen.Blazor >= 8.0.4"
@@ -942,6 +1021,10 @@
       "net9.0": {
         "targetAlias": "net9.0",
         "dependencies": {
+          "Blazor.Geolocation": {
+            "target": "Package",
+            "version": "[9.0.1, )"
+          },
           "Mapster": {
             "target": "Package",
             "version": "[7.4.0, )"

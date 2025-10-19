@@ -13,6 +13,7 @@ namespace DeliveryLogisticsAndTracking
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
             builder.Services.AddRadzenComponents();
+            builder.Services.AddGeolocationServices();
 
             var app = builder.Build();
 

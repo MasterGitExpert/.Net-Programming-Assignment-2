@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "9DiEOMdRFSs=",
+  "dgSpecHash": "wzovLanDt/s=",
   "success": true,
   "projectFilePath": "C:\\Users\\Annabel\\source\\repos\\.Net-Programming-Assignment-2\\DeliveryLogisticsAndTracking\\DeliveryLogisticsAndTracking.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Annabel\\.nuget\\packages\\blazor.geolocation\\9.0.1\\blazor.geolocation.9.0.1.nupkg.sha512",
+    "C:\\Users\\Annabel\\.nuget\\packages\\blazor.serialization\\9.0.1\\blazor.serialization.9.0.1.nupkg.sha512",
     "C:\\Users\\Annabel\\.nuget\\packages\\mapster\\7.4.0\\mapster.7.4.0.nupkg.sha512",
     "C:\\Users\\Annabel\\.nuget\\packages\\mapster.core\\1.2.1\\mapster.core.1.2.1.nupkg.sha512",
     "C:\\Users\\Annabel\\.nuget\\packages\\microsoft.aspnetcore.authorization\\9.0.9\\microsoft.aspnetcore.authorization.9.0.9.nupkg.sha512",
