@@ -1,4 +1,5 @@
 using DeliveryLogisticsAndTracking.Components;
+using DotNetEnv;
 using Radzen;
 
 namespace DeliveryLogisticsAndTracking
@@ -14,8 +15,18 @@ namespace DeliveryLogisticsAndTracking
                 .AddInteractiveServerComponents();
             builder.Services.AddRadzenComponents();
             builder.Services.AddGeolocationServices();
+            builder.Configuration.AddUserSecrets<Program>();
+            var config = builder.Configuration;
+
+            Env.Load();
+            builder.Configuration.AddEnvironmentVariables();
+
+            // Access the environment variables
+            string apiKey = Environment.GetEnvironmentVariable("GOOGLE_MAPS_API_KEY");
 
             var app = builder.Build();
+
+            app.MapGet("/", () => $"API Key: {apiKey}");
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
