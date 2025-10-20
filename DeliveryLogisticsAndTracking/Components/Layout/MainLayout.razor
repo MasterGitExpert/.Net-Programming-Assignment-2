@@ -1,16 +1,31 @@
 ﻿@inherits LayoutComponentBase
 
+<!--
+    MainLayout.razor
+    ----------------
+    This is the main layout component for the application.
+    It defines the overall page structure, including a sidebar for navigation
+    and a main content area where individual pages (via @Body) are rendered.
+-->
+
 <div class="page d-flex">
+    <!-- Sidebar container -->
     <div class="sidebar">
+        <!-- NavMenu component renders the side navigation links -->
         <NavMenu />
     </div>
 
+    <!-- Main content container -->
     <main class="flex-fill">
+        <!-- Top row: optional header for links or page actions -->
         <div class="top-row px-4 py-2 border-bottom">
+            <!-- Link to external documentation -->
             <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
         </div>
 
+        <!-- Main content area for page-specific content -->
         <article class="content px-4 py-3">
+            <!-- @Body renders the content of the page that uses this layout -->
             @Body
         </article>
     </main>

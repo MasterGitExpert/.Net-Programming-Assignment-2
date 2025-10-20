@@ -1,10 +1,21 @@
 ﻿@page "/"
 @inject NavigationManager Navigation
 
+<!--
+    Index.razor
+    ------------
+    This page serves as the root URL ("/") of the application.
+    Its sole purpose is to immediately redirect users to the login page.
+    No UI content is displayed because all users should start at login.
+-->
 @code {
+    /*
+        OnAfterRender is used here to perform an immediate redirect
+        after the component has rendered for the first time.
+    */
     protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)
-            Navigation.NavigateTo("/login", true);
+            Navigation.NavigateTo("/login", true); // Redirect root URL to login
     }
 }

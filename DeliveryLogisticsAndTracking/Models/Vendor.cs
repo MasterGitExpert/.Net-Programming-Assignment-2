@@ -1,5 +1,9 @@
 ﻿namespace DeliveryLogisticsAndTracking.Models
 {
+    /*<summary>
+    Represents a  in Vendor in the logistics system.
+    Each user can have **many** associated shipments.
+    </summary>*/
     public class Vendor
     {
         public int VendorId { get; set; }
