@@ -1,0 +1,58 @@
+﻿@page "/schedule"
+@using Syncfusion.Blazor.Schedule
+
+<PageTitle>Schedule</PageTitle>
+
+<h1>Schedule</h1>
+<p>View today's delivery schedule.</p>
+
+<SfSchedule TValue="AppointmentData" Height="600px" DataSource="@Appointments">
+    <ScheduleViews>
+        <ScheduleView Option="View.Day" />
+        <ScheduleView Option="View.Week" />
+        <ScheduleView Option="View.WorkWeek" />
+        <ScheduleView Option="View.Month" />
+        <ScheduleView Option="View.Agenda" />
+    </ScheduleViews>
+</SfSchedule>
+
+@code {
+    // Dummy appointments to ensure the calendar renders
+    private List<AppointmentData> Appointments = new List<AppointmentData>
+    {
+        new AppointmentData
+        {
+            Id = 1,
+            Subject = "Test Delivery",
+            Location = "Warehouse A",
+            StartTime = DateTime.Today.AddHours(9),
+            EndTime = DateTime.Today.AddHours(10),
+            Description = "Test delivery appointment",
+            IsAllDay = false
+        },
+        new AppointmentData
+        {
+            Id = 2,
+            Subject = "Driver Briefing",
+            Location = "HQ Meeting Room",
+            StartTime = DateTime.Today.AddHours(11),
+            EndTime = DateTime.Today.AddHours(12),
+            Description = "Morning briefing for drivers",
+            IsAllDay = false
+        }
+    };
+
+    public class AppointmentData
+    {
+        public int Id { get; set; }
+        public string Subject { get; set; } = string.Empty;
+        public string Location { get; set; } = string.Empty;
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public string Description { get; set; } = string.Empty;
+        public bool IsAllDay { get; set; }
+        public string RecurrenceRule { get; set; } = string.Empty;
+        public string RecurrenceException { get; set; } = string.Empty;
+        public int? RecurrenceID { get; set; }
+    }
+}

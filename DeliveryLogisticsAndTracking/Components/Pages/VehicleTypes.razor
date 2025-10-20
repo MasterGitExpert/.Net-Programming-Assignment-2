@@ -1,0 +1,127 @@
+﻿@page "/vehicletypes"
+@using Microsoft.EntityFrameworkCore
+@using DeliveryLogisticsAndTracking.Models
+@using DeliveryLogisticsAndTracking.Data
+@inject AppDbContext DbContext
+
+<h3>Vehicle Types Management</h3>
+
+<button class="btn btn-primary mb-3" @onclick="ShowAddModal">Add New Vehicle Type</button>
+
+@if (showAddModal)
+{
+    <div class="modal show d-block" style="background-color: rgba(0,0,0,0.5);">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Vehicle Type</h5>
+                    <button type="button" class="btn-close" @onclick="HideAddModal"></button>
+                </div>
+                <div class="modal-body">
+                    @if (!string.IsNullOrEmpty(formError))
+                    {
+                        <div class="alert alert-danger">@formError</div>
+                    }
+
+                    <EditForm Model="newVehicleType" OnValidSubmit="HandleValidSubmit">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+
+                        <div class="mb-3">
+                            <label>Vehicle Type Name</label>
+                            <InputText class="form-control" @bind-Value="newVehicleType.VehicleTypeName" />
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Add Vehicle Type</button>
+                        <button type="button" class="btn btn-secondary ms-2" @onclick="HideAddModal">Cancel</button>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Vehicle Type Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vt in vehicleTypes)
+        {
+            <tr>
+                <td>@vt.VehicleTypeId</td>
+                <td>@vt.VehicleTypeName</td>
+                <td>
+                    <button class="btn btn-sm btn-danger" @onclick="() => Delete(vt)">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<VehicleType> vehicleTypes = new();
+    private VehicleType newVehicleType = new();
+    private bool showAddModal = false;
+    private string formError = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadVehicleTypes();
+    }
+
+    private async Task LoadVehicleTypes()
+    {
+        vehicleTypes = await DbContext.VehicleTypes.ToListAsync();
+    }
+
+    private void ShowAddModal()
+    {
+        newVehicleType = new VehicleType();
+        formError = string.Empty;
+        showAddModal = true;
+    }
+
+    private void HideAddModal() => showAddModal = false;
+
+    private async Task HandleValidSubmit()
+    {
+        if (string.IsNullOrWhiteSpace(newVehicleType.VehicleTypeName))
+        {
+            formError = "Vehicle type name is required.";
+            return;
+        }
+
+        try
+        {
+            DbContext.VehicleTypes.Add(newVehicleType);
+            await DbContext.SaveChangesAsync();
+            showAddModal = false;
+            await LoadVehicleTypes();
+        }
+        catch (Exception ex)
+        {
+            formError = ex.Message;
+        }
+    }
+
+    private void Edit(VehicleType vt)
+    {
+        // Navigate to a dedicated Edit page or implement inline editing
+        Navigation.NavigateTo($"/edit/vehicletype/{vt.VehicleTypeId}");
+    }
+
+    private async Task Delete(VehicleType vt)
+    {
+        DbContext.VehicleTypes.Remove(vt);
+        await DbContext.SaveChangesAsync();
+        vehicleTypes.Remove(vt);
+        StateHasChanged();
+    }
+
+    [Inject] private NavigationManager Navigation { get; set; } = null!;
+}

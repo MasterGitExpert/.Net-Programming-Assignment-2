@@ -1,0 +1,162 @@
+﻿@page "/vehicles"
+@using Microsoft.EntityFrameworkCore
+@using DeliveryLogisticsAndTracking.Data
+@using DeliveryLogisticsAndTracking.Models
+@inject AppDbContext DbContext
+@inject SessionStateService SessionStateService
+@inject NavigationManager Navigation
+
+<h3>Vehicle Management</h3>
+
+@if (SessionStateService.UserType != "Admin")
+{
+    <p class="text-danger">Access denied. Admins only.</p>
+}
+else
+{
+    <button class="btn btn-primary mb-3" @onclick="ShowAddVehicleModal">Add New Vehicle</button>
+
+    @if (showAddVehicleModal)
+    {
+        <div class="modal show d-block" style="background-color: rgba(0,0,0,0.5);">
+            <div class="modal-dialog">
+                <div class="modal-content p-3">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New Vehicle</h5>
+                        <button type="button" class="btn-close" @onclick="HideAddVehicleModal"></button>
+                    </div>
+                    <div class="modal-body">
+                        @if (!string.IsNullOrEmpty(formError))
+                        {
+                            <div class="alert alert-danger">@formError</div>
+                        }
+
+                        <EditForm Model="newVehicle" OnValidSubmit="HandleValidSubmit">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary />
+
+                            <div class="mb-3">
+                                <label>Registration Number</label>
+                                <InputText class="form-control" @bind-Value="newVehicle.RegistrationNumber" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Payload Capacity</label>
+                                <InputNumber class="form-control" @bind-Value="newVehicle.PayloadCapacity" step="0.01" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Vehicle Cost</label>
+                                <InputNumber class="form-control" @bind-Value="newVehicle.VehicleCost" step="0.01" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Vehicle Type</label>
+                                <InputSelect class="form-select" @bind-Value="newVehicle.VehicleTypeId">
+                                    <option value="">-- Select Vehicle Type --</option>
+                                    @foreach (var type in vehicleTypes)
+                                    {
+                                        <option value="@type.VehicleTypeId">@type.VehicleTypeName</option>
+                                    }
+                                </InputSelect>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Add Vehicle</button>
+                            <button type="button" class="btn btn-secondary ms-2" @onclick="HideAddVehicleModal">Cancel</button>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Registration Number</th>
+                <th>Payload Capacity</th>
+                <th>Vehicle Cost</th>
+                <th>Vehicle Type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var vehicle in vehicles)
+            {
+                <tr>
+                    <td>@vehicle.VehicleId</td>
+                    <td>@vehicle.RegistrationNumber</td>
+                    <td>@vehicle.PayloadCapacity</td>
+                    <td>@vehicle.VehicleCost</td>
+                    <td>@vehicle.VehicleType?.VehicleTypeName</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" @onclick="() => DeleteVehicle(vehicle.VehicleId)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Vehicle> vehicles = new();
+    private List<VehicleType> vehicleTypes = new();
+    private Vehicle newVehicle = new();
+    private string formError = string.Empty;
+    private bool showAddVehicleModal = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        vehicleTypes = await DbContext.VehicleTypes.ToListAsync();
+        await LoadVehicles();
+    }
+
+    private async Task LoadVehicles()
+    {
+        vehicles = await DbContext.Vehicles.Include(v => v.VehicleType).ToListAsync();
+    }
+
+    private void ShowAddVehicleModal()
+    {
+        newVehicle = new Vehicle();
+        formError = string.Empty;
+        showAddVehicleModal = true;
+    }
+
+    private void HideAddVehicleModal() => showAddVehicleModal = false;
+
+    private async Task HandleValidSubmit()
+    {
+        if (string.IsNullOrWhiteSpace(newVehicle.RegistrationNumber) || newVehicle.VehicleTypeId == 0)
+        {
+            formError = "Registration Number and Vehicle Type are required.";
+            return;
+        }
+
+        try
+        {
+            DbContext.Vehicles.Add(newVehicle);
+            await DbContext.SaveChangesAsync();
+            showAddVehicleModal = false;
+            await LoadVehicles();
+        }
+        catch (Exception ex)
+        {
+            formError = ex.Message;
+        }
+    }
+
+    private void EditVehicle(int id) => Navigation.NavigateTo($"/edit/vehicle/{id}");
+
+    private async Task DeleteVehicle(int id)
+    {
+        var vehicle = await DbContext.Vehicles.FindAsync(id);
+        if (vehicle != null)
+        {
+            DbContext.Vehicles.Remove(vehicle);
+            await DbContext.SaveChangesAsync();
+            vehicles.Remove(vehicle);
+        }
+    }
+}

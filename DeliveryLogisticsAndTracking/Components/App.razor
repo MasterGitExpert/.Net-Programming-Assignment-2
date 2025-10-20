@@ -1,6 +1,23 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(App).Assembly"
+            PreferExactMatches="true"
+            AdditionalAssemblies="@RouterAssemblies">
+        <Found Context="routeData">
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(DeliveryLogisticsAndTracking.Components.Layout.MainLayout)" />
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
+        <NotFound>
+            <LayoutView Layout="@typeof(DeliveryLogisticsAndTracking.Components.Layout.MainLayout)">
+                <p>Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>
 
+@code {
+    private readonly IEnumerable<System.Reflection.Assembly> RouterAssemblies =
+        new[] { typeof(DeliveryLogisticsAndTracking.Components.App).Assembly };
+}
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
