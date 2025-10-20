@@ -47,6 +47,7 @@ namespace DeliveryLogisticsAndTracking.Services
                 await _context.SaveChangesAsync();
             }
         }
+
         public async Task AddUserPasswordAsync(int userId, string passwordHash)
         {
             var userPass = new UserAndPass
@@ -58,6 +59,7 @@ namespace DeliveryLogisticsAndTracking.Services
             _context.UserAndPasses.Add(userPass);
             await _context.SaveChangesAsync();
         }
+
         public async Task<IDbContextTransaction> BeginTransactionAsync()
         {
             return await _context.Database.BeginTransactionAsync();
@@ -79,18 +81,10 @@ namespace DeliveryLogisticsAndTracking.Services
                 .FirstOrDefaultAsync(up => up.UserId == userId);
 
             if (userPass == null)
-            {
-                Console.WriteLine($"[DEBUG] No password entry found for UserId {userId}");
                 return false;
-            }
 
             var hashedInput = HashPassword(password.Trim());
-            Console.WriteLine($"[DEBUG] UserId={userId}, StoredHash={userPass.PasswordHash}, InputHash={hashedInput}");
-
-            var isValid = userPass.PasswordHash == hashedInput;
-
-            Console.WriteLine($"[DEBUG] Password valid? {isValid}");
-            return isValid;
+            return userPass.PasswordHash == hashedInput;
         }
 
         public string HashPassword(string password)

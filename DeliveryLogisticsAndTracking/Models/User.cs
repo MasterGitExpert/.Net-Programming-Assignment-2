@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Collections.Generic;
 
 namespace DeliveryLogisticsAndTracking.Models
 {
@@ -11,21 +11,22 @@ namespace DeliveryLogisticsAndTracking.Models
         [Key]
         public int UserId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Name is required.")]
         public string Name { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "User type is required.")]
         public string UserType { get; set; } = string.Empty;
 
         [Column("DateOfBirth")]
         [CustomValidation(typeof(User), nameof(ValidateDOB))]
+        [DataType(DataType.Date)]
         public DateTime DOB { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Email is required.")]
         [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", ErrorMessage = "Email must be in a valid format (example@domain.com)")]
         public string Email { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Phone number is required.")]
         [Column("PhoneNumber")]
         [RegularExpression(@"^\d{8,12}$", ErrorMessage = "Phone number must be 8 to 12 digits and contain only numbers")]
         public string Phone { get; set; } = string.Empty;

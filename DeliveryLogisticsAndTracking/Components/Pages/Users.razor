@@ -22,13 +22,14 @@
                         <div class="alert alert-danger">@formError</div>
                     }
 
-                    <EditForm Model="newUser" OnValidSubmit="HandleValidSubmit" FormName="AddUserForm">
+                    <EditForm Model="newUser" OnValidSubmit="HandleValidSubmit">
                         <DataAnnotationsValidator />
                         <ValidationSummary />
 
                         <div class="mb-3">
                             <label>Name</label>
                             <InputText class="form-control" @bind-Value="newUser.Name" />
+                            <ValidationMessage For="@(() => newUser.Name)" />
                         </div>
 
                         <div class="mb-3">
@@ -40,21 +41,29 @@
                                     <option value="@type">@type</option>
                                 }
                             </InputSelect>
+                            <ValidationMessage For="@(() => newUser.UserType)" />
                         </div>
 
                         <div class="mb-3">
                             <label>Date of Birth</label>
                             <InputDate class="form-control" @bind-Value="newUser.DOB" max="@DateTime.Today" />
+                            <ValidationMessage For="@(() => newUser.DOB)" />
+                            @if (newUser.DOB > DateTime.Today)
+                            {
+                                <div class="text-danger small mt-1">Date of birth cannot be in the future.</div>
+                            }
                         </div>
 
                         <div class="mb-3">
                             <label>Email</label>
                             <InputText class="form-control" @bind-Value="newUser.Email" />
+                            <ValidationMessage For="@(() => newUser.Email)" />
                         </div>
 
                         <div class="mb-3">
                             <label>Phone</label>
                             <InputText class="form-control" @bind-Value="newUser.Phone" />
+                            <ValidationMessage For="@(() => newUser.Phone)" />
                         </div>
 
                         <div class="mb-3">
@@ -65,9 +74,13 @@
                         <div class="mb-3">
                             <label>Password</label>
                             <InputText class="form-control" @bind-Value="newUserPassword" type="password" />
+                            @if (string.IsNullOrWhiteSpace(newUserPassword))
+                            {
+                                <div class="text-danger small mt-1">Password is required.</div>
+                            }
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Add User</button>
+                        <button type="submit" class="btn btn-primary" disabled="@(!CanSubmit())">Add User</button>
                         <button type="button" class="btn btn-secondary ms-2" @onclick="HideAddUserModal">Cancel</button>
                     </EditForm>
                 </div>
@@ -136,22 +149,27 @@
 
     private void HideAddUserModal() => showAddUserModal = false;
 
+    private bool CanSubmit()
+    {
+        return !string.IsNullOrWhiteSpace(newUser.Name)
+            && !string.IsNullOrWhiteSpace(newUser.UserType)
+            && !string.IsNullOrWhiteSpace(newUser.Email)
+            && !string.IsNullOrWhiteSpace(newUser.Phone)
+            && !string.IsNullOrWhiteSpace(newUserPassword)
+            && newUser.DOB <= DateTime.Today;
+    }
+
     private async Task HandleValidSubmit()
     {
-        if (string.IsNullOrWhiteSpace(newUser.Name) ||
-            string.IsNullOrWhiteSpace(newUser.UserType) ||
-            string.IsNullOrWhiteSpace(newUser.Email) ||
-            string.IsNullOrWhiteSpace(newUser.Phone) ||
-            string.IsNullOrWhiteSpace(newUserPassword))
+        if (!CanSubmit())
         {
-            formError = "All fields including password are required.";
+            formError = "Please fix validation errors before submitting.";
             return;
         }
 
         try
         {
             await UserService.AddUserAsync(newUser);
-
             var passwordHash = UserService.HashPassword(newUserPassword);
             await UserService.AddUserPasswordAsync(newUser.UserId, passwordHash);
 
