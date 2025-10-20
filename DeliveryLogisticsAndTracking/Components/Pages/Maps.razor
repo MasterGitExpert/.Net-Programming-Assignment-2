@@ -1,0 +1,253 @@
+﻿@page "/maps"
+
+@rendermode InteractiveServer
+@using Radzen
+@using Radzen.Blazor
+@using System.Linq.Dynamic.Core;
+@using System.Linq;
+@inject IJSRuntime JS
+@using Microsoft.JSInterop
+@inject IGeolocationService Geolocation
+@using DeliveryLogisticsAndTracking.Components.Models
+@using DotNetEnv;
+
+<PageTitle>Delivery Map</PageTitle>
+<div style="margin-bottom: 1rem">
+    <RadzenText TextStyle="TextStyle.H3">Delivery Map</RadzenText>
+</div>
+
+<div class="row" >
+    <!-- Packages to be delivered list -->
+    <div style="flex: 1; max-height: 800px; overflow-y: auto; ">
+        <RadzenText TextStyle="TextStyle.H6">Packages to Deliver</RadzenText>
+
+        @foreach (var pkg in packages)
+        {
+            <div class="package-card" @onclick="() => OnPackageSelect(pkg)">
+                <RadzenCard Variant="Variant.Outlined" class="rz-my-8 rz-mx-auto rz-shadow-2 rz-border-radius-4" Style="max-width: 420px">
+                <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Start" Gap="10px" class="rz-p-4">
+                    <RadzenIcon Icon="package_2" />
+                    <RadzenStack Gap="0">
+                        <RadzenText TextStyle="TextStyle.Overline" class="rz-display-flex rz-mt-4 rz-mb-0">Location</RadzenText>
+                        <RadzenText TextStyle="TextStyle.Body1"><b>@pkg.Name</b></RadzenText>
+                            <RadzenText TextStyle="TextStyle.Overline" class="rz-display-flex rz-mt-4 rz-mb-0">Status</RadzenText>
+                            <RadzenText TextStyle="TextStyle.Body1"><b>@(pkg.Status ?? "N/A")</b></RadzenText>
+                    </RadzenStack>
+                </RadzenStack>
+            </RadzenCard>
+            </div>
+        }
+    </div>
+
+    <!-- Delivery Map -->
+    <div class="col-9">
+        <RadzenGoogleMap style="height: 800px" MapId="2cc58eba15772a5e95a654c8" ApiKey=@apiKey MapClick=@OnMapClick Center=@driverLocation 
+            Data=@markers Zoom=@zoom Options=@(new Dictionary<string, object> { { "disableDoubleClickZoom", true } })>
+        </RadzenGoogleMap>
+    </div>
+</div>
+
+
+@code {
+    IList<RadzenGoogleMapMarker> markers = new List<RadzenGoogleMapMarker>();
+    GoogleMapPosition driverLocation = new GoogleMapPosition() { Lat = -33.86, Lng = 151.21 }; // Sydney default
+    GoogleMapPosition packageDestination = new GoogleMapPosition() { Lat = -33.88386333154902, Lng = 151.19925758418867 }; // UTS Engineering Building default
+    GeolocationPosition? _position;
+    GeolocationPositionError? _positionError;
+    List<Package> packages = new();
+
+    int zoom = 10;
+    bool _isLoading = true;
+    private string? apiKey;
+
+    readonly PositionOptions _options = new()
+    {
+        EnableHighAccuracy = true,
+        MaximumAge = null,
+        Timeout = 15_000
+    };
+
+    protected override void OnInitialized()
+    {
+        markers.Add(new RadzenGoogleMapMarker { Position = packageDestination, Title = "Package Destination", Label = $"{destination}" });
+        apiKey = Environment.GetEnvironmentVariable("GOOGLE_MAPS_API_KEY");
+
+        base.OnInitialized();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // sample data
+        packages = new()
+        {
+            new Package { Name = "Bondi Beach", Destination = new GoogleMapPosition { Lat = -33.8915, Lng = 151.2767 }, Status = "In Transit" },
+            new Package { Name = "Parramatta", Destination = new GoogleMapPosition { Lat = -33.8150, Lng = 151.0030 }, Status = "In Transit" },
+            new Package { Name = "Manly", Destination = new GoogleMapPosition { Lat = -33.7958, Lng = 151.2890 }, Status = "In Transit" },
+            new Package { Name = "Penrith", Destination = new GoogleMapPosition { Lat = -33.7490, Lng = 150.6960 }, Status = "In Transit" },
+            new Package { Name = "Liverpool", Destination = new GoogleMapPosition { Lat = -33.9173, Lng = 150.9171 }, Status = "In Transit" },
+            new Package { Name = "Cronulla", Destination = new GoogleMapPosition { Lat = -34.0411, Lng = 151.1575 }, Status = "In Transit" },
+            new Package { Name = "Northern Beaches", Destination = new GoogleMapPosition { Lat = -33.7400, Lng = 151.3000 }, Status = "In Transit" },
+            new Package { Name = "Sutherland", Destination = new GoogleMapPosition { Lat = -34.0284, Lng = 151.0310 }, Status = "In Transit" },
+            new Package { Name = "Ryde", Destination = new GoogleMapPosition { Lat = -33.8110, Lng = 151.0940 }, Status = "In Transit" },
+            new Package { Name = "Campbelltown", Destination = new GoogleMapPosition { Lat = -34.0736, Lng = 150.8142 }, Status = "In Transit" },
+        };
+
+        markers.Add(new RadzenGoogleMapMarker
+        {
+            Position = packageDestination,
+            Title = "Package Destination",
+            Label = $"{destination}"
+        });
+
+        await GetDriverLocationAsync();
+    }
+
+    private async Task OnPackageSelect(Package selected)
+    {
+        packageDestination = selected.Destination;
+
+        // clear old destination markers (keep driver)
+        markers = markers.Where(m => m.Title != "Package Destination").ToList();
+
+        markers.Add(new RadzenGoogleMapMarker
+        {
+            Position = packageDestination,
+            Title = "Package Destination",
+            Label = $"{destination}"
+        });
+
+        driverLocation = packageDestination; // recenter map on destination
+        await JS.InvokeVoidAsync("console.log", $"Package '{selected.Name}' selected: {packageDestination.Lat}, {packageDestination.Lng}");
+
+        StateHasChanged();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender is false)
+        {
+            return;
+        }
+
+        // get current position
+        await Geolocation.GetCurrentPositionAsync(
+            component: this,
+            onSuccessCallbackMethodName: nameof(OnPositionReceived),
+            onErrorCallbackMethodName: nameof(OnPositionError),
+            options: _options);
+    }
+
+    [JSInvokable]
+    public void OnPositionReceived(GeolocationPosition position)
+    {
+        _isLoading = false;
+        _position = position;
+        JS.InvokeVoidAsync("console.log", $"Current Location here Lat: {position.Coords.Latitude}, Lng: {position.Coords.Longitude}");
+
+        driverLocation = new GoogleMapPosition() { Lat = position.Coords.Latitude, Lng = position.Coords.Longitude };
+        markers.Add(new RadzenGoogleMapMarker { Position = driverLocation, Title = "Current Location", Label = $"{driver}" });
+
+        StateHasChanged();
+    }
+
+    [JSInvokable]
+    public void OnPositionError(GeolocationPositionError positionError)
+    {
+        _isLoading = false;
+        _positionError = positionError;
+        StateHasChanged();
+    }
+
+    private async Task OnMapClick(GoogleMapClickEventArgs args)
+    {
+        await JS.InvokeVoidAsync("console.log", $"Map clicked at Lat: {args.Position.Lat}, Lng: {args.Position.Lng}");
+    }
+
+    private async Task GetDriverLocationAsync()
+    {
+        try
+        {
+            var position = await JS.InvokeAsync<GeolocationResult>("getCurrentPosition");
+            try
+            {
+                GeolocationCoordinates coordinates = _position.Coords;
+                await JS.InvokeVoidAsync("console.log", $"Current Location at Lat: {coordinates.Latitude}, Lng: {coordinates.Longitude}");
+
+            } catch
+            {
+                await JS.InvokeVoidAsync("console.log", "Error getting location");
+            }
+
+            driverLocation = new GoogleMapPosition() { Lat = position.Latitude, Lng = position.Longitude };
+        }
+        catch
+        {
+            // fallback if geolocation fails
+            driverLocation = new GoogleMapPosition() { Lat = -27.39, Lng = 153.13 };
+        }
+    }
+
+    public class GeolocationResult
+    {
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+    }
+
+    // icons
+    string driver = @"
+        <svg xmlns=""http://www.w3.org/2000/svg"" xmlns:xlink=""http://www.w3.org/1999/xlink"" version=""1.1"" width=""32"" height=""32"" viewBox=""0 0 256 256"" xml:space=""preserve"">
+        <g style=""stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;"" transform=""translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"">
+	        <circle cx=""80.71300000000001"" cy=""60.793"" r=""5.563"" style=""stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(64,89,107); fill-rule: nonzero; opacity: 1;"" transform=""  matrix(1 0 0 1 0 0) ""/>
+	        <path d=""M 89.582 47.937 L 79.276 36.344 c -0.314 -0.353 -0.764 -0.555 -1.237 -0.555 l -10.475 0 c -3.419 8.412 -3.419 16.825 0 25.237 h 5.574 c -0.002 -0.079 -0.012 -0.156 -0.012 -0.235 c 0 -4.19 3.396 -7.586 7.586 -7.586 c 4.19 0 7.586 3.396 7.586 7.586 c 0 0.079 -0.009 0.157 -0.012 0.235 h 0.059 c 0.914 0 1.655 -0.741 1.655 -1.655 V 49.037 C 90 48.631 89.851 48.24 89.582 47.937 z"" style=""stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,112,88); fill-rule: nonzero; opacity: 1;"" transform="" matrix(1 0 0 1 0 0) "" stroke-linecap=""round""/>
+	        <path d=""M 63.841 23.646 H 32.209 c -2.056 0 -3.723 2.055 -3.723 4.589 v 30.577 c 0 1.222 0.804 2.213 1.795 2.213 h 3.875 h 1.43 c -0.002 -0.079 -0.012 -0.156 -0.012 -0.235 c 0 -4.19 3.396 -7.586 7.586 -7.586 c 4.19 0 7.586 3.396 7.586 7.586 c 0 0.079 -0.009 0.157 -0.012 0.235 h 16.829 V 45.057 v -8.039 v -8.782 C 67.564 25.701 65.897 23.646 63.841 23.646 z"" style=""stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(231,78,58); fill-rule: nonzero; opacity: 1;"" transform="" matrix(1 0 0 1 0 0) "" stroke-linecap=""round""/>
+	        <circle cx=""43.163000000000004"" cy=""60.793"" r=""5.563"" style=""stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(64,89,107); fill-rule: nonzero; opacity: 1;"" transform=""  matrix(1 0 0 1 0 0) ""/>
+	        <path d=""M 90 48.407 H 75.454 c -0.817 0 -1.48 -0.662 -1.48 -1.48 v -5.502 c 0 -0.817 0.662 -1.48 1.48 -1.48 l 7.024 0 C 85.428 42.142 87.863 45.065 90 48.407 z"" style=""stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(242,242,242); fill-rule: nonzero; opacity: 1;"" transform="" matrix(1 0 0 1 0 0) "" stroke-linecap=""round""/>
+	        <path d=""M 21.428 52.555 H 8.692 c -0.546 0 -0.989 -0.442 -0.989 -0.989 s 0.443 -0.989 0.989 -0.989 h 12.737 c 0.546 0 0.989 0.442 0.989 0.989 S 21.975 52.555 21.428 52.555 z"" style=""stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,112,88); fill-rule: nonzero; opacity: 1;"" transform="" matrix(1 0 0 1 0 0) "" stroke-linecap=""round""/>
+	        <path d=""M 21.428 45.565 H 4.648 c -0.546 0 -0.989 -0.443 -0.989 -0.989 c 0 -0.546 0.443 -0.989 0.989 -0.989 h 16.781 c 0.546 0 0.989 0.443 0.989 0.989 C 22.417 45.122 21.975 45.565 21.428 45.565 z"" style=""stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,112,88); fill-rule: nonzero; opacity: 1;"" transform="" matrix(1 0 0 1 0 0) "" stroke-linecap=""round""/>
+	        <path d=""M 21.428 38.574 H 0.989 C 0.443 38.574 0 38.131 0 37.585 s 0.443 -0.989 0.989 -0.989 h 20.439 c 0.546 0 0.989 0.443 0.989 0.989 S 21.975 38.574 21.428 38.574 z"" style=""stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,112,88); fill-rule: nonzero; opacity: 1;"" transform="" matrix(1 0 0 1 0 0) "" stroke-linecap=""round""/>
+        </g>
+        </svg>";
+
+    string destination = @"
+        <svg
+          xmlns=""http://www.w3.org/2000/svg""
+          xmlns:xlink=""http://www.w3.org/1999/xlink""
+          version=""1.1""
+          width=""32""
+          height=""32""
+          viewBox=""0 0 256 256""
+          xml:space=""preserve"">
+          <g
+            style=""stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt;
+                   stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero;
+                   opacity: 1;""
+            transform=""translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"">
+            <path
+              d=""M 45 90 c -1.415 0 -2.725 -0.748 -3.444 -1.966
+                 l -4.385 -7.417 C 28.167 65.396 19.664 51.02 16.759 45.189
+                 c -2.112 -4.331 -3.175 -8.955 -3.175 -13.773
+                 C 13.584 14.093 27.677 0 45 0
+                 c 17.323 0 31.416 14.093 31.416 31.416
+                 c 0 4.815 -1.063 9.438 -3.157 13.741
+                 c -0.025 0.052 -0.053 0.104 -0.08 0.155
+                 c -2.961 5.909 -11.41 20.193 -20.353 35.309
+                 l -4.382 7.413
+                 C 47.725 89.252 46.415 90 45 90 z""
+              style=""stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt;
+                     stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,129,231);
+                     fill-rule: nonzero; opacity: 1;""
+              transform=""matrix(1 0 0 1 0 0)""
+              stroke-linecap=""round"" />
+            <path
+              d=""M 45 45.678 c -8.474 0 -15.369 -6.894 -15.369 -15.368
+                 S 36.526 14.941 45 14.941
+                 c 8.474 0 15.368 6.895 15.368 15.369
+                 S 53.474 45.678 45 45.678 z""
+              style=""stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt;
+                     stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255);
+                     fill-rule: nonzero; opacity: 1;""
+              transform=""matrix(1 0 0 1 0 0)""
+              stroke-linecap=""round"" />
+          </g>
+        </svg>";
+}

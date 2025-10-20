@@ -1,4 +1,7 @@
-﻿using DeliveryLogisticsAndTracking.Data;
+﻿using DeliveryLogisticsAndTracking.Components;
+using DotNetEnv;
+using Radzen;
+using DeliveryLogisticsAndTracking.Data;
 using DeliveryLogisticsAndTracking.Models;
 using DeliveryLogisticsAndTracking.Services;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +30,19 @@ namespace DeliveryLogisticsAndTracking
 
             // Syncfusion
             builder.Services.AddSyncfusionBlazor();
+            // Add services to the container.
+            builder.Services.AddRazorComponents()
+                .AddInteractiveServerComponents();
+            builder.Services.AddRadzenComponents();
+            builder.Services.AddGeolocationServices();
+            builder.Configuration.AddUserSecrets<Program>();
+            var config = builder.Configuration;
+
+            Env.Load();
+            builder.Configuration.AddEnvironmentVariables();
+
+            // Access the environment variables
+            string apiKey = Environment.GetEnvironmentVariable("GOOGLE_MAPS_API_KEY");
 
             var app = builder.Build();
 
@@ -78,6 +94,9 @@ namespace DeliveryLogisticsAndTracking
             // -----------------------------
             // Middleware pipeline
             // -----------------------------
+            app.MapGet("/", () => $"API Key: {apiKey}");
+
+            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Error");
