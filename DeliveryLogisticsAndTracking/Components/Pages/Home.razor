@@ -1,7 +1,46 @@
 ﻿@page "/home"
 
+@inherits GetUserId
+
 <PageTitle>Home</PageTitle>
 
 <h1>Home</h1>
 
-Welcome to your app homepage / dashboard.
+@if (user is null)
+{
+    <p><em>Loading...</em></p>
+} else if (user.RoleId == 1)
+{
+    <p>Welcome @user.Name,</p>
+    
+    <div class="text-center fs-4 w-100 h-100 p-10 mb-15">
+        <a class="mb-4 link-dark link-underline-opacity-25 link-underline-opacity-100-hover" href="@($"roles?userid={user.UserId}")">Manage Roles</a>
+        <br>
+        <br>
+        <a class="mb-4 link-dark link-underline-opacity-25 link-underline-opacity-100-hover"href="@($"users?userid={user.UserId}")">Manage Users</a>
+        <br>
+        <br>
+        <a class="mb-4 link-dark link-underline-opacity-25 link-underline-opacity-100-hover" href="@($"vehicletypes?userid={user.UserId}")">Manage Vehicle Types</a>
+        <br>
+        <br>
+        <a class="mb-4 link-dark link-underline-opacity-25 link-underline-opacity-100-hover" href="@($"vehicles?userid={user.UserId}")">Manage Vehicles</a>
+        <br>
+        <br>
+        <a class="mb-4 link-dark link-underline-opacity-25 link-underline-opacity-100-hover" href="@($"vendors?userid={user.UserId}")">Manage Vendors</a>
+        <br>
+        <br>
+        <a class="mb-4 link-dark link-underline-opacity-25 link-underline-opacity-100-hover" href="@($"shipments?userid={user.UserId}")">Manage Shipments</a>
+        <br>
+        <br>
+        <a class="mb-4 link-dark link-underline-opacity-25 link-underline-opacity-100-hover" href="@($"schedule?userid={user.UserId}")">Schedule Deliveries</a>
+        <br>
+        <br>
+    </div>
+
+} else if (user.RoleId == 2)
+{
+    <p>Welcome @user.Name,</p>
+    <br>
+    <p>See todays schedule <a href="@($"schedule?userid={user.UserId}")">here</a>.</p>
+    
+}

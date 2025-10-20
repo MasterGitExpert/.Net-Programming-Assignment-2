@@ -17,8 +17,13 @@
             <ValidationSummary class="text-danger" role="alert"/>
             <div class="mb-3">
                 <label for="deliverydatetime" class="form-label">DeliveryDateTime:</label> 
-                <InputDate id="deliverydatetime" @bind-Value="Delivery.DeliveryDateTime" class="form-control" /> 
+                <InputDate id="deliverydatetime" Type="InputDateType.DateTimeLocal" @bind-Value="Delivery.DeliveryDateTime" class="form-control" /> 
                 <ValidationMessage For="() => Delivery.DeliveryDateTime" class="text-danger" /> 
+            </div>   
+            <div class="mb-3">
+                <label for="etadatetime" class="form-label">ETADateTime:</label> 
+                <InputDate id="etadatetime" Type="InputDateType.DateTimeLocal" @bind-Value="Delivery.ETADateTime" class="form-control" /> 
+                <ValidationMessage For="() => Delivery.ETADateTime" class="text-danger" /> 
             </div>        
             <div class="mb-3">
                 <label for="source" class="form-label">Source:</label> 
@@ -69,6 +74,6 @@
         using var context = DbFactory.CreateDbContext();
         context.Delivery.Add(Delivery);
         await context.SaveChangesAsync();
-        NavigationManager.NavigateTo("/deliveries");
+        NavigationManager.NavigateTo($"/deliveries");
     }
 }

@@ -10,6 +10,9 @@ namespace DeliveryLogisticsAndTracking
         [DataType(DataType.DateTime)]
         public DateTime DeliveryDateTime { get; set; }
 
+        [DataType(DataType.DateTime)]
+        public DateTime ETADateTime { get; set; }
+
         public string? Source { get; set; }
 
         public string? Destination { get; set; }

@@ -22,6 +22,10 @@
             <dd class="col-sm-10">@delivery.DeliveryDateTime</dd>
         </dl>
         <dl class="row">
+            <dt class="col-sm-2">ETADateTime</dt>
+            <dd class="col-sm-10">@delivery.ETADateTime</dd>
+        </dl>
+        <dl class="row">
             <dt class="col-sm-2">Source</dt>
             <dd class="col-sm-10">@delivery.Source</dd>
         </dl>
@@ -47,7 +51,7 @@
         </dl>
         <EditForm method="post" Model="delivery" OnValidSubmit="DeleteDelivery" FormName="delete" Enhance>
             <button type="submit" class="btn btn-danger" disabled="@(delivery is null)">Delete</button> |
-            <a href="/deliveries">Back to List</a>
+            <a href="@("/deliveries")">Back to List</a>
         </EditForm>
     }
 </div>

@@ -1,0 +1,17 @@
+﻿@code {
+    public User? user;
+
+    [SupplyParameterFromQuery]
+    public int UserId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        user = await context.User.FirstOrDefaultAsync(m => m.UserId == UserId);
+
+        if (user is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

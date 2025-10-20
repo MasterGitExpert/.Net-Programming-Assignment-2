@@ -6,7 +6,11 @@
 @using static Microsoft.AspNetCore.Components.Web.RenderMode
 @using Microsoft.AspNetCore.Components.Web.Virtualization
 @using Microsoft.JSInterop
+@using Microsoft.EntityFrameworkCore
 @using DeliveryLogisticsAndTracking
+@using DeliveryLogisticsAndTracking.Data
 @using DeliveryLogisticsAndTracking.Components
 @using Syncfusion.Blazor.Schedule;
+@inject IDbContextFactory<DeliveryLogisticsAndTracking.Data.DeliveryLogisticsAndTrackingContext> DbFactory
+@inject NavigationManager NavigationManager
 
