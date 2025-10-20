@@ -1,12 +1,22 @@
-﻿<CascadingAuthenticationState>
+﻿@* App.razor
+   Entry point for the Blazor app.
+   Handles routing, layout, and authentication state.
+*@
+<CascadingAuthenticationState>
     <Router AppAssembly="@typeof(App).Assembly"
             PreferExactMatches="true"
             AdditionalAssemblies="@RouterAssemblies">
+        
         <Found Context="routeData">
+            @* Render the matched component using the default layout *@
             <RouteView RouteData="@routeData" DefaultLayout="@typeof(DeliveryLogisticsAndTracking.Components.Layout.MainLayout)" />
+            
+            @* Focus the first <h1> element after navigation *@
             <FocusOnNavigate RouteData="@routeData" Selector="h1" />
         </Found>
+
         <NotFound>
+            @* Rendered when no route matches *@
             <LayoutView Layout="@typeof(DeliveryLogisticsAndTracking.Components.Layout.MainLayout)">
                 <p>Sorry, there's nothing at this address.</p>
             </LayoutView>
@@ -15,6 +25,7 @@
 </CascadingAuthenticationState>
 
 @code {
+    // Include additional assemblies for routing if you have components in other assemblies
     private readonly IEnumerable<System.Reflection.Assembly> RouterAssemblies =
         new[] { typeof(DeliveryLogisticsAndTracking.Components.App).Assembly };
 }

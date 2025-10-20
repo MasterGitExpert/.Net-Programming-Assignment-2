@@ -109,12 +109,6 @@
         }
     }
 
-    private void Edit(VehicleType vt)
-    {
-        // Navigate to a dedicated Edit page or implement inline editing
-        Navigation.NavigateTo($"/edit/vehicletype/{vt.VehicleTypeId}");
-    }
-
     private async Task Delete(VehicleType vt)
     {
         DbContext.VehicleTypes.Remove(vt);

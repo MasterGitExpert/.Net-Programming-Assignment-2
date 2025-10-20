@@ -1,20 +1,30 @@
 ﻿@inject SessionStateService SessionStateService
 @inject NavigationManager Navigation
 
+<!--
+    NavMenu.razor
+    -------------
+    This component renders the side navigation menu for the application.
+    It dynamically displays links based on the currently logged-in user's role
+    (Admin or Driver). It also provides a logout button.
+-->
+<!-- Top row with branding and hamburger menu for small screens -->
 <div class="top-row navbar navbar-dark bg-dark px-3">
+    <!-- Application brand/logo -->
     <a class="navbar-brand" href="">Net Logistics</a>
 
-    <!-- Hamburger toggler for small screens -->
+    <!-- Clicking this toggles the collapse/expand state of the sidebar -->
     <button class="navbar-toggler d-md-none" type="button" @onclick="ToggleNav">
         <span class="navbar-toggler-icon"></span>
     </button>
 </div>
 
+<!-- Sidebar navigation links -->
 <div class="nav-scrollable @(collapseNav ? "collapse" : "") d-md-block">
     <nav class="nav flex-column px-3">
         @if (!string.IsNullOrEmpty(SessionStateService.UserType))
         {
-            @* Admin-only links *@
+            <!-- Links visible only to Admin users -->
             @if (SessionStateService.UserType == "Admin")
             {
                 <NavLink class="nav-link" href="home" Match="NavLinkMatch.All">Home</NavLink>
@@ -24,27 +34,30 @@
                 <NavLink class="nav-link" href="vendors">Vendors</NavLink>
             }
 
-            @* Admin + Driver links *@
+            <!-- Links visible to both Admin and Driver users -->
             @if (SessionStateService.UserType == "Driver" || SessionStateService.UserType == "Admin")
             {
                 <NavLink class="nav-link" href="schedule">Schedule</NavLink>
             }
 
-            @* Logout button *@
+            <!-- Logout button -->
             <div class="nav-item mt-3">
                 <button class="btn btn-danger w-100" @onclick="Logout">Logout</button>
             </div>
         }
         else
         {
+            <!-- Show login link if no user is logged in -->
             <NavLink class="nav-link" href="login">Login</NavLink>
         }
     </nav>
 </div>
 
 @code {
+    // Tracks whether the sidebar is collapsed (for small screens)
     private bool collapseNav = true;
 
+    // Subscribe to SessionState changes so the menu updates automatically
     protected override void OnInitialized()
     {
         SessionStateService.OnChange += async () =>
@@ -53,15 +66,17 @@
         };
     }
 
+    // Toggles sidebar collapse state for small screens
     private void ToggleNav()
     {
         collapseNav = !collapseNav;
     }
 
+    // Logs out the current user and navigates to the login page
     private async Task Logout()
     {
         await SessionStateService.ClearUserAsync();
         Navigation.NavigateTo("/login", true);
-        collapseNav = true; // collapse after logout
+        collapseNav = true; // Collapse the sidebar after logout
     }
 }

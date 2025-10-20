@@ -1,5 +1,9 @@
 ﻿namespace DeliveryLogisticsAndTracking.Models
 {
+    /*<summary>
+    Represents a Vehicle Type in the logistics system.
+    Each Vehicle type can belong to **many** associated Vehicles.
+    </summary>*/
     public class VehicleType
     {
         public int VehicleTypeId { get; set; }

@@ -4,40 +4,73 @@
 @inject SessionStateService SessionStateService
 @inject NavigationManager Navigation
 
+<!--
+    Login.razor
+    ------------
+    This page allows users to log in to the application.
+    It includes:
+      - A simple form with Email and Password fields.
+      - Data validation via DataAnnotations.
+      - Error messages for failed login attempts.
+      - Redirect to the Home page upon successful login.
+-->
+
 <div class="login-container">
     <div class="login-card">
         <h3>Login</h3>
 
+        <!--
+            EditForm binds to 'loginModel'.
+            OnValidSubmit calls 'HandleLogin' if the form passes validation.
+        -->
         <EditForm Model="@loginModel" OnValidSubmit="@HandleLogin">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
-
+            <DataAnnotationsValidator /> 
+            <ValidationSummary />       
+    
             <div class="mb-3">
                 <label>Email</label>
                 <InputText class="form-control" @bind-Value="loginModel.Email" />
             </div>
 
+            
             <div class="mb-3">
                 <label>Password</label>
                 <InputText class="form-control" type="password" @bind-Value="loginModel.Password" />
             </div>
 
+            
             @if (!string.IsNullOrEmpty(loginError))
             {
                 <div class="alert alert-danger">@loginError</div>
             }
 
+            <!-- Submit button -->
             <button type="submit" class="btn btn-primary">Login</button>
         </EditForm>
     </div>
 </div>
 
 @code {
+    // Model bound to the login form
     private LoginModel loginModel = new();
+
+    // Holds error messages for invalid login attempts
     private string loginError = string.Empty;
 
+    /*
+        HandleLogin
+        ------------
+        Called when the user submits the login form.
+        Steps:
+          1. Retrieve the user by email from the database.
+          2. Validate the entered password.
+          3. If valid, store user info in SessionStateService.
+          4. Redirect to the Home page.
+          5. Display error messages for invalid login attempts.
+    */
     private async Task HandleLogin()
     {
+        // Get user from database
         var user = await UserService.GetUserByEmailAsync(loginModel.Email?.Trim() ?? "");
         if (user == null)
         {
@@ -45,6 +78,7 @@
             return;
         }
 
+        // Validate password
         var valid = await UserService.ValidateLoginAsync(user.UserId, loginModel.Password?.Trim() ?? "");
         if (!valid)
         {
@@ -52,10 +86,20 @@
             return;
         }
 
-        await SessionStateService.SetUserAsync(user.UserId, user.UserType);
-        Navigation.NavigateTo(user.UserType == "Driver" ? "/schedule" : "/home");
+        // Store logged-in user info in session
+        await SessionStateService.SetUserAsync(user.UserId, user.UserType, user.Name);
+
+        // Redirect to Home page after successful login
+        Navigation.NavigateTo("/home", true);
     }
 
+    /*
+        LoginModel
+        ----------
+        Defines the form model with validation attributes.
+        - Email: Required and must be a valid email format.
+        - Password: Required field.
+    */
     public class LoginModel
     {
         [Required(ErrorMessage = "Email is required.")]

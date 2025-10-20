@@ -1,15 +1,33 @@
-﻿@using System.Net.Http
-@using System.Net.Http.Json
-@using Microsoft.AspNetCore.Components.Forms
-@using Microsoft.AspNetCore.Components.Routing
-@using Microsoft.AspNetCore.Components.Web
-@using Microsoft.AspNetCore.Components.Web.Virtualization
-@using Microsoft.JSInterop
-@using DeliveryLogisticsAndTracking
-@using DeliveryLogisticsAndTracking.Components
-@using DeliveryLogisticsAndTracking.Components.Pages
-@using DeliveryLogisticsAndTracking.Components.Layout
-@using DeliveryLogisticsAndTracking.Services
-@using DeliveryLogisticsAndTracking.Models
-@using Syncfusion.Blazor
-@using Syncfusion.Blazor.Schedule
+﻿@* 
+    Imports.razor
+    -------------
+    Centralized Razor imports for the DeliveryLogisticsAndTracking project.
+    Provides commonly used namespaces to all Razor components in the project.
+    Avoids the need to repeatedly declare @using in individual pages/components.
+*@
+
+@* HTTP support *@
+@using System.Net.Http
+@using System.Net.Http.Json  @* For convenient JSON GET/POST requests *@
+
+@* Blazor forms, routing, and web interactivity *@
+@using Microsoft.AspNetCore.Components.Forms       @* Provides EditForm, InputText, InputSelect, etc. *@
+@using Microsoft.AspNetCore.Components.Routing     @* Enables NavLink and route handling *@
+@using Microsoft.AspNetCore.Components.Web         @* Event handling for UI elements *@
+@using Microsoft.AspNetCore.Components.Web.Virtualization @* Virtualization for large lists/grids *@
+
+@* JavaScript interop *@
+@using Microsoft.JSInterop                         @* Enables calling JavaScript functions from Blazor *@
+
+@* Project-specific namespaces *@
+@using DeliveryLogisticsAndTracking                @* Root project namespace *@
+@using DeliveryLogisticsAndTracking.Components    @* Base components namespace *@
+@using DeliveryLogisticsAndTracking.Components.Pages   @* All pages/components *@
+@using DeliveryLogisticsAndTracking.Components.Layout  @* Layout components like MainLayout, NavMenu *@
+@using DeliveryLogisticsAndTracking.Services      @* Services such as UserService, SessionStateService *@
+@using DeliveryLogisticsAndTracking.Models        @* Data models for EF Core entities *@
+
+@* Third-party libraries *@
+@using Syncfusion.Blazor                           @* Core Syncfusion Blazor components *@
+@using Syncfusion.Blazor.Schedule                  @* Syncfusion Scheduler component for calendar/schedule views *@
+
