@@ -213,3 +213,8 @@ C:\Users\Annabel\source\repos\.Net-Programming-Assignment-2\DeliveryLogisticsAnd
 C:\Users\Annabel\source\repos\.Net-Programming-Assignment-2\DeliveryLogisticsAndTracking\bin\Debug\net9.0\Microsoft.Extensions.Caching.Abstractions.dll
 C:\Users\Annabel\source\repos\.Net-Programming-Assignment-2\DeliveryLogisticsAndTracking\bin\Debug\net9.0\Microsoft.Extensions.Caching.Memory.dll
 C:\Users\Annabel\source\repos\.Net-Programming-Assignment-2\DeliveryLogisticsAndTracking\bin\Debug\net9.0\Microsoft.Extensions.Logging.dll
+C:\Users\Annabel\source\repos\.Net-Programming-Assignment-2\DeliveryLogisticsAndTracking\bin\Debug\net9.0\Blazor.Geolocation.dll
+C:\Users\Annabel\source\repos\.Net-Programming-Assignment-2\DeliveryLogisticsAndTracking\bin\Debug\net9.0\Blazor.Serialization.dll
+C:\Users\Annabel\source\repos\.Net-Programming-Assignment-2\DeliveryLogisticsAndTracking\bin\Debug\net9.0\DotNetEnv.dll
+C:\Users\Annabel\source\repos\.Net-Programming-Assignment-2\DeliveryLogisticsAndTracking\bin\Debug\net9.0\Sprache.dll
+C:\Users\Annabel\source\repos\.Net-Programming-Assignment-2\DeliveryLogisticsAndTracking\obj\Debug\net9.0\compressed\4r23y8djwr-o4rzawt8gf.gz

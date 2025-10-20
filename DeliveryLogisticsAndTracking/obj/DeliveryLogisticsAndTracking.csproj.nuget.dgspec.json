@@ -50,6 +50,14 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Blazor.Geolocation": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            },
+            "DotNetEnv": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
             "Mapster": {
               "target": "Package",
               "version": "[7.4.0, )"
