@@ -1,0 +1,121 @@
+﻿@page "/schedule"
+@rendermode InteractiveServer
+
+@* @implements IAsyncDisposable *@
+@inject IDbContextFactory<DeliveryLogisticsAndTracking.Data.DeliveryLogisticsAndTrackingContext> DbFactory
+
+
+<PageTitle>Schedule</PageTitle>
+
+<h1>Schedule</h1>
+
+@if (user is null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (user.RoleId == 1)
+{
+    <p>Welcome @user.Name, manage the delivery schedule for your drivers.</p>
+    <br>
+    <br>
+    <div class="container">
+        <div class="col-md-8">
+            <SfSchedule TValue=Delivery>
+            <ScheduleViews>
+                <ScheduleView Option="View.Day"></ScheduleView>
+                <ScheduleView Option="View.Week"></ScheduleView>
+                <ScheduleView Option="View.Month"></ScheduleView>
+            </ScheduleViews>
+            <ScheduleEventSettings DataSource="Deliveries" TValue="Delivery">
+                <ScheduleField Id="DeliveryId">
+                    <FieldSubject Name="Source"></FieldSubject>
+                    <FieldStartTime Name="DeliveryDateTime"></FieldStartTime>
+                    <FieldEndTime Name="ETADateTime"></FieldEndTime>
+                    <FieldLocation Name="Destination"></FieldLocation>
+                </ScheduleField>
+            </ScheduleEventSettings>
+            </SfSchedule>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+
+}
+else if (user.RoleId == 2)
+{
+    
+    <p>Welcome @user.Name, view your delivery schedule for today.</p>
+        <div class="container">
+        <div class="col-md-8">
+            <SfSchedule Readonly="true" TValue=Delivery>
+            <ScheduleViews>
+                <ScheduleView Option="View.Day"></ScheduleView>
+                <ScheduleView Option="View.Week"></ScheduleView>
+            </ScheduleViews>
+            <ScheduleEventSettings DataSource="Deliveries" TValue="Delivery">
+                <ScheduleField Id="DeliveryId">
+                    <FieldSubject Name="Source"></FieldSubject>
+                    <FieldStartTime Name="DeliveryDateTime"></FieldStartTime>
+                    <FieldEndTime Name="ETADateTime"></FieldEndTime>
+                    <FieldLocation Name="Destination"></FieldLocation>
+                </ScheduleField>
+            </ScheduleEventSettings>
+            </SfSchedule>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+}
+
+
+@code {
+    List<DeliverySchedule> DataSource = new List<DeliverySchedule>
+    {
+    new DeliverySchedule {Id=1, Subject="Shipment 1", Location="test", StartTime=new DateTime(2025, 10, 20, 8, 0, 0),
+    EndTime=new DateTime(2025, 10, 20, 9, 30, 0), Description="Blank"}
+    };
+
+    public void Redirect(Delivery delivery)
+    {
+        NavigationManager.NavigateTo($"map?deliveryid={delivery.DeliveryId}");   
+    }
+
+    public class DeliverySchedule
+    {
+        public int Id { get; set; }
+        public string Subject { get; set; }
+        public string Location { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public string Description { get; set; }
+    }
+
+    public User? user;
+
+    [SupplyParameterFromQuery]
+    public int UserId { get; set; }
+
+    private DeliveryLogisticsAndTrackingContext context = default!;
+    public List<Delivery> Deliveries;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        context = DbFactory.CreateDbContext();
+        using var dbContext = await DbFactory.CreateDbContextAsync();
+        Deliveries = await dbContext.Delivery.ToListAsync();
+        user = await dbContext.User.FirstOrDefaultAsync(m => m.UserId == UserId);
+
+        // if (user is null)
+        // {
+        //     NavigationManager.NavigateTo("notfound");
+        // }
+    }
+    // protected override void OnInitialized()
+    // {
+    //     context = DbFactory.CreateDbContext();
+    // }
+
+    // public async ValueTask DisposeAsync() => await context.DisposeAsync();
+
+}
