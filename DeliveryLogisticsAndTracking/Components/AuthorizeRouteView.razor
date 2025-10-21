@@ -1,0 +1,54 @@
+﻿@* 
+    AuthorizedRouteView.razor
+    -------------------------
+    Custom RouteView component that adds role-based access control
+    on top of standard Blazor routing.
+    Ensures users are redirected to /login if they are not authorized.
+*@
+
+@using Microsoft.AspNetCore.Components.Routing
+@inject SessionStateService SessionStateService   
+@inject NavigationManager Navigation            
+
+@* Render the matched route component using the default layout *@
+<RouteView RouteData="RouteData" DefaultLayout="DefaultLayout" />
+
+@code {
+    // Route data for the current navigation
+    [Parameter] public RouteData? RouteData { get; set; }
+
+    // Default layout to use if the page does not specify its own
+    [Parameter] public Type? DefaultLayout { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        // If no route data, nothing to check
+        if (RouteData == null) return;
+
+        var pageType = RouteData.PageType;          // The Razor component being navigated to
+        var userId = SessionStateService.UserId;    // Current logged-in user ID
+        var userType = SessionStateService.UserType; // Current logged-in user role/type
+
+        // Allow access to Login page regardless of authentication
+        if (pageType.FullName?.EndsWith("Login") ?? false)
+            return;
+
+        // If user is not logged in, redirect to login page
+        if (userId == null)
+        {
+            Navigation.NavigateTo("/login", true);
+            return;
+        }
+
+        // Admin users have full access to all pages
+        if (userType == "Admin")
+            return;
+
+        // Drivers can only access the Schedule page
+        if (userType == "Driver" && (pageType.FullName?.EndsWith("Schedule") ?? false))
+            return;
+
+        // All other cases: redirect to login (unauthorized access)
+        Navigation.NavigateTo("/login", true);
+    }
+}

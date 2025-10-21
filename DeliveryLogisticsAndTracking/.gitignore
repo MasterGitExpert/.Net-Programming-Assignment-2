@@ -1,0 +1,55 @@
+# =========================
+# Visual Studio / IDE files
+# =========================
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.idea/
+.vscode/
+
+# =========================
+# Build outputs
+# =========================
+bin/
+obj/
+out/
+publish/
+
+# =========================
+# NuGet packages
+# =========================
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+
+# =========================
+# ASP.NET / Blazor
+# =========================
+*.db
+*.bak
+*.log
+
+# Ignore compiled CSS/JS if you use npm or libman to restore
+wwwroot/css/**/*.min.css
+wwwroot/js/**/*.min.js
+
+# But keep libraries managed by libman or npm
+!wwwroot/lib/
+
+# EF Core Migrations (optional)
+Migrations/
+
+# =========================
+# Database
+# =========================
+*.mdf
+*.ldf
+
+# =========================
+# OS and miscellaneous
+# =========================
+*.DS_Store
+Thumbs.db

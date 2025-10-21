@@ -1,21 +1,31 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@* App.razor
+   Entry point for the Blazor app.
+   Handles routing, layout, and authentication state.
+*@
+<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(App).Assembly"
+            PreferExactMatches="true"
+            AdditionalAssemblies="@RouterAssemblies">
+        
+        <Found Context="routeData">
+            @* Render the matched component using the default layout *@
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(DeliveryLogisticsAndTracking.Components.Layout.MainLayout)" />
+            
+            @* Focus the first <h1> element after navigation *@
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <base href="/" />
-    <link rel="stylesheet" href="@Assets["lib/bootstrap/dist/css/bootstrap.min.css"]" />
-    <link rel="stylesheet" href="@Assets["app.css"]" />
-    <link rel="stylesheet" href="@Assets["DeliveryLogisticsAndTracking.styles.css"]" />
-    <ImportMap />
-    <link rel="icon" type="image/png" href="favicon.png" />
-    <HeadOutlet />
-</head>
+        <NotFound>
+            @* Rendered when no route matches *@
+            <LayoutView Layout="@typeof(DeliveryLogisticsAndTracking.Components.Layout.MainLayout)">
+                <p>Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>
 
-<body>
-    <Routes />
-    <script src="_framework/blazor.web.js"></script>
-</body>
-
-</html>
+@code {
+    // Include additional assemblies for routing if you have components in other assemblies
+    private readonly IEnumerable<System.Reflection.Assembly> RouterAssemblies =
+        new[] { typeof(DeliveryLogisticsAndTracking.Components.App).Assembly };
+}

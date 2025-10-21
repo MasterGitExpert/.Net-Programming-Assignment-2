@@ -1,0 +1,222 @@
+﻿@page "/vehicles"
+@using Microsoft.EntityFrameworkCore
+@using DeliveryLogisticsAndTracking.Data
+@using DeliveryLogisticsAndTracking.Models
+@inject AppDbContext DbContext
+@inject SessionStateService SessionStateService
+@inject NavigationManager Navigation
+
+<!--
+    Vehicles.razor
+    ---------------
+    Vehicle management page.
+    Features:
+      - List all vehicles in a table.
+      - Add new vehicles via a modal form.
+      - Delete existing vehicles.
+      - Only accessible to Admin users.
+-->
+
+<h3>Vehicle Management</h3>
+
+<!-- Access control -->
+@if (SessionStateService.UserType != "Admin")
+{
+    <p class="text-danger">Access denied. Admins only.</p>
+}
+else
+{
+    <!-- Button to open modal for adding a new vehicle -->
+    <button class="btn btn-primary mb-3" @onclick="ShowAddVehicleModal">Add New Vehicle</button>
+
+    <!-- Modal for adding a new vehicle -->
+    @if (showAddVehicleModal)
+    {
+        <div class="modal show d-block" style="background-color: rgba(0,0,0,0.5);">
+            <div class="modal-dialog">
+                <div class="modal-content p-3">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New Vehicle</h5>
+                        <button type="button" class="btn-close" @onclick="HideAddVehicleModal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Display form-level error messages -->
+                        @if (!string.IsNullOrEmpty(formError))
+                        {
+                            <div class="alert alert-danger">@formError</div>
+                        }
+
+                        <!-- Form for adding a new vehicle -->
+                        <EditForm Model="newVehicle" OnValidSubmit="HandleValidSubmit">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary />
+
+                            <!-- Registration Number input -->
+                            <div class="mb-3">
+                                <label>Registration Number</label>
+                                <InputText class="form-control" @bind-Value="newVehicle.RegistrationNumber" />
+                            </div>
+
+                            <!-- Payload Capacity input -->
+                            <div class="mb-3">
+                                <label>Payload Capacity</label>
+                                <InputNumber class="form-control" @bind-Value="newVehicle.PayloadCapacity" step="0.01" />
+                            </div>
+
+                            <!-- Vehicle Cost input -->
+                            <div class="mb-3">
+                                <label>Vehicle Cost</label>
+                                <InputNumber class="form-control" @bind-Value="newVehicle.VehicleCost" step="0.01" />
+                            </div>
+
+                            <!-- Vehicle Type dropdown -->
+                            <div class="mb-3">
+                                <label>Vehicle Type</label>
+                                <InputSelect class="form-select" @bind-Value="newVehicle.VehicleTypeId">
+                                    <option value="">-- Select Vehicle Type --</option>
+                                    @foreach (var type in vehicleTypes)
+                                    {
+                                        <option value="@type.VehicleTypeId">@type.VehicleTypeName</option>
+                                    }
+                                </InputSelect>
+                            </div>
+
+                            <!-- Submit & cancel buttons -->
+                            <button type="submit" class="btn btn-primary">Add Vehicle</button>
+                            <button type="button" class="btn btn-secondary ms-2" @onclick="HideAddVehicleModal">Cancel</button>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Table displaying all vehicles -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Registration Number</th>
+                <th>Payload Capacity</th>
+                <th>Vehicle Cost</th>
+                <th>Vehicle Type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var vehicle in vehicles)
+            {
+                <tr>
+                    <td>@vehicle.VehicleId</td>
+                    <td>@vehicle.RegistrationNumber</td>
+                    <td>@vehicle.PayloadCapacity</td>
+                    <td>@vehicle.VehicleCost</td>
+                    <td>@vehicle.VehicleType?.VehicleTypeName</td>
+                    <td>
+                        <!-- Delete button triggers vehicle deletion -->
+                        <button class="btn btn-sm btn-danger" @onclick="() => DeleteVehicle(vehicle.VehicleId)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    // List of all vehicles displayed in the table
+    private List<Vehicle> vehicles = new();
+
+    // List of vehicle types for the dropdown
+    private List<VehicleType> vehicleTypes = new();
+
+    // Model for adding a new vehicle
+    private Vehicle newVehicle = new();
+
+    // Holds form-level error messages
+    private string formError = string.Empty;
+
+    // Controls visibility of the Add Vehicle modal
+    private bool showAddVehicleModal = false;
+
+    /*
+        OnInitializedAsync
+        -----------------
+        Fetch vehicle types and load all vehicles when the page initializes.
+    */
+    protected override async Task OnInitializedAsync()
+    {
+        vehicleTypes = await DbContext.VehicleTypes.ToListAsync();
+        await LoadVehicles();
+    }
+
+    /*
+        LoadVehicles
+        ------------
+        Loads all vehicles from the database including the related VehicleType.
+    */
+    private async Task LoadVehicles()
+    {
+        vehicles = await DbContext.Vehicles.Include(v => v.VehicleType).ToListAsync();
+    }
+
+    /*
+        ShowAddVehicleModal
+        ------------------
+        Prepares a new Vehicle object and displays the modal form.
+    */
+    private void ShowAddVehicleModal()
+    {
+        newVehicle = new Vehicle();
+        formError = string.Empty;
+        showAddVehicleModal = true;
+    }
+
+    // Hides the Add Vehicle modal
+    private void HideAddVehicleModal() => showAddVehicleModal = false;
+
+    /*
+        HandleValidSubmit
+        ----------------
+        Handles submission of the Add Vehicle form:
+          1. Validates required fields.
+          2. Adds the vehicle to the database.
+          3. Refreshes the vehicles list.
+          4. Displays errors if saving fails.
+    */
+    private async Task HandleValidSubmit()
+    {
+        if (string.IsNullOrWhiteSpace(newVehicle.RegistrationNumber) || newVehicle.VehicleTypeId == 0)
+        {
+            formError = "Registration Number and Vehicle Type are required.";
+            return;
+        }
+
+        try
+        {
+            DbContext.Vehicles.Add(newVehicle);
+            await DbContext.SaveChangesAsync();
+            showAddVehicleModal = false;
+            await LoadVehicles();
+        }
+        catch (Exception ex)
+        {
+            formError = ex.Message;
+        }
+    }
+
+    /*
+        DeleteVehicle
+        -------------
+        Deletes the specified vehicle from the database and updates the UI.
+    */
+    private async Task DeleteVehicle(int id)
+    {
+        var vehicle = await DbContext.Vehicles.FindAsync(id);
+        if (vehicle != null)
+        {
+            DbContext.Vehicles.Remove(vehicle);
+            await DbContext.SaveChangesAsync();
+            vehicles.Remove(vehicle); // Remove from local list for immediate UI update
+        }
+    }
+}

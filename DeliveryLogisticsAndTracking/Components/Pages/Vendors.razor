@@ -1,0 +1,189 @@
+﻿@page "/vendors"
+@using Microsoft.EntityFrameworkCore
+@using DeliveryLogisticsAndTracking.Data
+@using DeliveryLogisticsAndTracking.Models
+@inject AppDbContext DbContext
+@inject SessionStateService SessionStateService
+@inject NavigationManager Navigation
+
+<!--
+    Vendors.razor
+    -------------
+    Vendor Management page.
+    Features:
+      - Display all vendors in a table.
+      - Add new vendors via a modal form.
+      - Delete existing vendors.
+      - Placeholder for future editing functionality.
+      - Access restricted to Admin users only.
+-->
+
+<h3>Vendor Management</h3>
+
+<!-- Restrict page access to Admin users -->
+@if (SessionStateService.UserType != "Admin")
+{
+    <p class="text-danger">Access denied. Admins only.</p>
+}
+else
+{
+    <!-- Button to show modal for adding a new vendor -->
+    <button class="btn btn-primary mb-3" @onclick="ShowAddVendorModal">Add New Vendor</button>
+
+    <!-- Modal for adding a new vendor -->
+    @if (showAddVendorModal)
+    {
+        <div class="modal show d-block" style="background-color: rgba(0,0,0,0.5);">
+            <div class="modal-dialog">
+                <div class="modal-content p-3">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New Vendor</h5>
+                        <button type="button" class="btn-close" @onclick="HideAddVendorModal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Display form-level errors -->
+                        @if (!string.IsNullOrEmpty(formError))
+                        {
+                            <div class="alert alert-danger">@formError</div>
+                        }
+
+                        <!-- Form for adding a new vendor -->
+                        <EditForm Model="newVendor" OnValidSubmit="HandleValidSubmit">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary />
+
+                            <!-- Vendor Name input -->
+                            <div class="mb-3">
+                                <label>Vendor Name</label>
+                                <InputText class="form-control" @bind-Value="newVendor.VendorName" />
+                            </div>
+
+                            <!-- Submit and Cancel buttons -->
+                            <button type="submit" class="btn btn-primary">Add Vendor</button>
+                            <button type="button" class="btn btn-secondary ms-2" @onclick="HideAddVendorModal">Cancel</button>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Table displaying existing vendors -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Vendor Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var vendor in vendors)
+            {
+                <tr>
+                    <td>@vendor.VendorId</td>
+                    <td>@vendor.VendorName</td>
+                    <td>
+                        <!-- Delete button triggers deletion of this vendor -->
+                        <button class="btn btn-sm btn-danger" @onclick="() => DeleteVendor(vendor.VendorId)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    // List of all vendors displayed in the table
+    private List<Vendor> vendors = new();
+
+    // Model for the new vendor to be added
+    private Vendor newVendor = new();
+
+    // Controls visibility of the Add Vendor modal
+    private bool showAddVendorModal = false;
+
+    // Stores form-level error messages
+    private string formError = string.Empty;
+
+    /*
+        OnInitializedAsync
+        -----------------
+        Loads all vendors from the database when the page initializes.
+    */
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadVendors();
+    }
+
+    /*
+        LoadVendors
+        -----------
+        Loads vendors from the database into the local list for display.
+    */
+    private async Task LoadVendors()
+    {
+        vendors = await DbContext.Vendors.ToListAsync();
+    }
+
+    /*
+        ShowAddVendorModal
+        -----------------
+        Prepares a new Vendor object and displays the modal for adding a new vendor.
+    */
+    private void ShowAddVendorModal()
+    {
+        newVendor = new Vendor();
+        formError = string.Empty;
+        showAddVendorModal = true;
+    }
+
+    // Hides the Add Vendor modal
+    private void HideAddVendorModal() => showAddVendorModal = false;
+
+    /*
+        HandleValidSubmit
+        ----------------
+        Handles the submission of the Add Vendor form:
+          1. Validates that the vendor name is provided.
+          2. Adds the new vendor to the database.
+          3. Refreshes the displayed list.
+          4. Displays error messages if saving fails.
+    */
+    private async Task HandleValidSubmit()
+    {
+        if (string.IsNullOrWhiteSpace(newVendor.VendorName))
+        {
+            formError = "Vendor Name is required.";
+            return;
+        }
+
+        try
+        {
+            DbContext.Vendors.Add(newVendor);
+            await DbContext.SaveChangesAsync();
+            showAddVendorModal = false;
+            await LoadVendors();
+        }
+        catch (Exception ex)
+        {
+            formError = ex.Message;
+        }
+    }
+
+    /*
+        DeleteVendor
+        ------------
+        Deletes the selected vendor from the database and updates the UI immediately.
+    */
+    private async Task DeleteVendor(int id)
+    {
+        var vendor = await DbContext.Vendors.FindAsync(id);
+        if (vendor != null)
+        {
+            DbContext.Vendors.Remove(vendor);
+            await DbContext.SaveChangesAsync();
+            vendors.Remove(vendor);
+        }
+    }
+}

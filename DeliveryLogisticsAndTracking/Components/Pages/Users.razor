@@ -1,0 +1,279 @@
+﻿@page "/users"
+@inject UserService UserService
+@inject SessionStateService SessionStateService
+@inject IJSRuntime JS
+
+<!--
+    Users.razor
+    ------------
+    This page provides user management functionality.
+    Features:
+      - Display a table of all users.
+      - Add a new user via a modal form.
+      - Delete existing users.
+      - Client-side validation (required fields, DOB not in the future, password required).
+      - Uses UserService for database operations.
+-->
+
+<h3>User Management</h3>
+
+<!-- Button to open modal for adding a new user -->
+<button class="btn btn-primary mb-3" @onclick="ShowAddUserModal">Add New User</button>
+
+<!-- Modal form for adding a new user -->
+@if (showAddUserModal)
+{
+    <div class="modal show d-block" style="background-color: rgba(0,0,0,0.5);">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New User</h5>
+                    <button type="button" class="btn-close" @onclick="HideAddUserModal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Display form-level error messages -->
+                    @if (!string.IsNullOrEmpty(formError))
+                    {
+                        <div class="alert alert-danger">@formError</div>
+                    }
+
+                    <!-- Form for creating a new user -->
+                    <EditForm Model="newUser" OnValidSubmit="HandleValidSubmit">
+                        <DataAnnotationsValidator /> <!-- Enable DataAnnotation validation -->
+                        <ValidationSummary />       <!-- Show summary of validation errors -->
+                        <!-- Name input -->
+                        <div class="mb-3">
+                            <label>Name</label>
+                            <InputText class="form-control" @bind-Value="newUser.Name" />
+                            <ValidationMessage For="@(() => newUser.Name)" />
+                        </div>
+
+                        <!-- User type dropdown -->
+                        <div class="mb-3">
+                            <label>User Type</label>
+                            <InputSelect class="form-select" @bind-Value="newUser.UserType">
+                                <option value="">-- Select User Type --</option>
+                                @foreach (var type in userTypes)
+                                {
+                                    <option value="@type">@type</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="@(() => newUser.UserType)" />
+                        </div>
+
+                        <!-- Date of Birth input -->
+                        <div class="mb-3">
+                            <label>Date of Birth</label>
+                            <InputDate class="form-control" @bind-Value="newUser.DOB" max="@DateTime.Today" />
+                            <ValidationMessage For="@(() => newUser.DOB)" />
+                            @* Extra client-side check for DOB in future *@
+                            @if (newUser.DOB > DateTime.Today)
+                            {
+                                <div class="text-danger small mt-1">Date of birth cannot be in the future.</div>
+                            }
+                        </div>
+
+                        <!-- Email input -->
+                        <div class="mb-3">
+                            <label>Email</label>
+                            <InputText class="form-control" @bind-Value="newUser.Email" />
+                            <ValidationMessage For="@(() => newUser.Email)" />
+                        </div>
+
+                        <!-- Phone input -->
+                        <div class="mb-3">
+                            <label>Phone</label>
+                            <InputText class="form-control" @bind-Value="newUser.Phone" />
+                            <ValidationMessage For="@(() => newUser.Phone)" />
+                        </div>
+
+                        <!-- Address input -->
+                        <div class="mb-3">
+                            <label>Address</label>
+                            <InputTextArea class="form-control" @bind-Value="newUser.Address" rows="3" />
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="mb-3">
+                            <label>Password</label>
+                            <InputText class="form-control" @bind-Value="newUserPassword" type="password" />
+                            @if (string.IsNullOrWhiteSpace(newUserPassword))
+                            {
+                                <div class="text-danger small mt-1">Password is required.</div>
+                            }
+                        </div>
+
+                        <!-- Submit & cancel buttons -->
+                        <button type="submit" class="btn btn-primary" disabled="@(!CanSubmit())">Add User</button>
+                        <button type="button" class="btn btn-secondary ms-2" @onclick="HideAddUserModal">Cancel</button>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Table displaying all users -->
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>User Type</th>
+            <th>DOB</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in users)
+        {
+            <tr>
+                <td>@user.UserId</td>
+                <td>@user.Name</td>
+                <td>@user.UserType</td>
+                <td>@user.DOB.ToShortDateString()</td>
+                <td>@user.Email</td>
+                <td>@user.Phone</td>
+                <td>@user.Address</td>
+                <td>
+                    <!-- Delete button triggers confirmation and deletion -->
+                    <button class="btn btn-sm btn-danger" @onclick="() => DeleteUser(user.UserId)">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    // List of all users displayed in the table
+    private List<User> users = new();
+
+    // Model for adding a new user
+    private User newUser = new();
+
+    // Password entered for the new user
+    private string newUserPassword = string.Empty;
+
+    // Holds form-level error messages
+    private string formError = string.Empty;
+
+    // Dropdown values for user type selection
+    private List<string> userTypes = new() { "Admin", "Driver" };
+
+    // Controls visibility of the Add User modal
+    private bool showAddUserModal = false;
+
+    /*
+        OnInitializedAsync
+        -----------------
+        Load all users from the database when the page initializes.
+    */
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadUsers();
+    }
+
+    /*
+        LoadUsers
+        ---------
+        Fetches users from the UserService and updates the UI.
+    */
+    private async Task LoadUsers()
+    {
+        users = await UserService.GetUsersAsync();
+    }
+
+    /*
+        ShowAddUserModal
+        ----------------
+        Prepares a new User object and displays the modal form.
+    */
+    private void ShowAddUserModal()
+    {
+        newUser = new User { DOB = DateTime.Today };
+        newUserPassword = string.Empty;
+        formError = string.Empty;
+        showAddUserModal = true;
+    }
+
+    // Hides the Add User modal
+    private void HideAddUserModal() => showAddUserModal = false;
+
+    /*
+        CanSubmit
+        ---------
+        Determines whether the form is valid and ready for submission.
+        Checks for:
+          - Required fields
+          - Password entered
+          - DOB not in the future
+    */
+    private bool CanSubmit()
+    {
+        return !string.IsNullOrWhiteSpace(newUser.Name)
+            && !string.IsNullOrWhiteSpace(newUser.UserType)
+            && !string.IsNullOrWhiteSpace(newUser.Email)
+            && !string.IsNullOrWhiteSpace(newUser.Phone)
+            && !string.IsNullOrWhiteSpace(newUserPassword)
+            && newUser.DOB <= DateTime.Today;
+    }
+
+    /*
+        HandleValidSubmit
+        ----------------
+        Handles form submission:
+          1. Validates inputs.
+          2. Adds new user to the database.
+          3. Hashes and stores the password.
+          4. Refreshes the users list.
+          5. Shows errors if any operation fails.
+    */
+    private async Task HandleValidSubmit()
+    {
+        if (!CanSubmit())
+        {
+            formError = "Please fix validation errors before submitting.";
+            return;
+        }
+
+        try
+        {
+            await UserService.AddUserAsync(newUser);
+            var passwordHash = UserService.HashPassword(newUserPassword);
+            await UserService.AddUserPasswordAsync(newUser.UserId, passwordHash);
+
+            showAddUserModal = false;
+            await LoadUsers();
+        }
+        catch (Exception ex)
+        {
+            formError = ex.Message;
+        }
+    }
+
+    /*
+        DeleteUser
+        ----------
+        Confirms with the user, then deletes the specified user from the database
+        and updates the UI.
+    */
+    private async Task DeleteUser(int userId)
+    {
+        var confirm = await JS.InvokeAsync<bool>("confirm", $"Are you sure you want to delete user ID {userId}?");
+        if (!confirm) return;
+
+        try
+        {
+            await UserService.DeleteUserAsync(userId);
+            users.RemoveAll(u => u.UserId == userId);
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            formError = $"Error deleting user: {ex.Message}";
+        }
+    }
+}

@@ -1,7 +1,65 @@
-﻿@page "/"
+﻿@page "/home"
+@inject SessionStateService SessionStateService
+@inject NavigationManager Navigation
+
+<!--
+    Home.razor
+    ----------
+    This page serves as the default landing page after a user logs in.
+    It displays a personalized welcome message including the user's name
+    and user type. Access is restricted to authenticated users only.
+-->
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<!--
+    Display a redirect message while checking authentication.
+    If the user is not authenticated, they will be redirected to the login page.
+-->
+@if (!isAuthenticated)
+{
+    <p>Redirecting to login...</p>
+}
+else
+{
+    <!-- Content shown only when the user is authenticated -->
+    <div class="container mt-4">
+        <h2>Welcome @SessionStateService.UserName to .Net Logistics</h2>
+        <p class="lead">You are logged in as @SessionStateService.UserType.</p>
+        <p>Use the side navigation to access your dashboard features.</p>
+    </div>
+}
 
-Welcome to your new app.
+@code {
+    // Tracks whether the current user is authenticated
+    private bool isAuthenticated = false;
+
+    /*
+        OnAfterRenderAsync is used here to perform authentication checks
+        after the component has been rendered for the first time.
+        - Loads the current user information from the session state.
+        - Redirects to the login page if the user is not authenticated.
+        - Sets isAuthenticated to true to render the page content for valid users.
+    */
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Load user info from session (retrieved from local storage or memory)
+            await SessionStateService.LoadUserAsync();
+
+            // If user is not logged in, redirect to login page
+            if (string.IsNullOrEmpty(SessionStateService.UserType))
+            {
+                await Task.Delay(50); // Small delay to allow UI updates before navigation
+                Navigation.NavigateTo("/login", true);
+            }
+            else
+            {
+                // User is authenticated; show content
+                isAuthenticated = true;
+                StateHasChanged(); // Force re-render to show the page content
+            }
+        }
+    }
+}
